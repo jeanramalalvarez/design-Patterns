@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">  
+
+
+
+<h:head>
+	<title>Sistema de Información ¿Qué Comemos?</title>
+</h:head>
+
+<h:body>
+	
+	<h:form>  
+		<p:panel id="panel" header="Bienvenido al Sistema ¿Qué Comemos?"  >
+
+		        <p:messages id="messages" />
+
+		        <h:panelGrid columns="2" cellpadding="5">
+		            <h:outputLabel for="inputUsuario" value="Usuario:" />
+		            <p:inputText id="inputUsuario" required="false" />
+		 
+		            <p:outputLabel for="inputPassword" value="Contraseña:" />
+		            <p:inputText id="inputPassword" required="false" />
+		        </h:panelGrid>
+
+				<p:commandButton action="index?faces-redirect=true" value="Login"/>
+   				<p:commandButton action="nuevoUsuario?faces-redirect=true" value="¿Nuevo Usuario?" />
+		
+			</p:panel>
+
+	</h:form>  
+
+</h:body>
+</html>

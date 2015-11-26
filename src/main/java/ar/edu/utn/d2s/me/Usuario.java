@@ -57,6 +57,8 @@ public class Usuario {
 	
 	@Transient
 	private RepositorioRecetas repositorioRecetas;
+
+	private String password;
 	
 	public Usuario() {
 		// TODO Auto-generated constructor stub
@@ -354,5 +356,13 @@ public class Usuario {
 			recetasCompartidas.addAll(grupo.recetasCompartidas(this));
 		}
 		return recetasCompartidas;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

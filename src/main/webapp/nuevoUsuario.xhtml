@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">  
+
+
+
+<h:head>
+	<title>Nuevo Usuario</title>
+</h:head>
+
+<h:body>
+	
+	<h:form>  
+		<p:panel id="panel" header="Nuevo Usuario" style="margin-bottom:10px;">
+
+		        <p:messages id="messages" />
+		
+		 <h:panelGrid columns="2" cellpadding="5">
+			
+			 <h:outputLabel value="Nombre:" />
+		     <p:inputText />
+		     
+		     <h:outputLabel value="Mail:" />
+		     <p:inputText />
+		     
+		     <h:outputLabel value="Password:" />
+		     <p:inputText />		 
+		    
+			
+			<h:outputLabel value="Fecha  de Nacimiento: " />
+		    <h:panelGrid columns="3" cellpadding="1">
+						 		    
+
+			 	<h:selectOneMenu value="#{nuevoUsuarioController.dia}">
+	    			<f:selectItems value="#{nuevoUsuarioController.dias}" />
+				</h:selectOneMenu>
+
+				<h:selectOneMenu value="#{nuevoUsuarioController.mes}">
+	    			<f:selectItems value="#{nuevoUsuarioController.mapMeses}" />
+				</h:selectOneMenu>
+				
+				<h:selectOneMenu value="#{nuevoUsuarioController.anio}">
+	    			<f:selectItems value="#{nuevoUsuarioController.anios}" />
+				</h:selectOneMenu>
+				
+		 	
+		 	</h:panelGrid>
+		    
+		    
+		    
+		    <p:commandButton action="#{nuevoUsuarioController.crear}" value="Crear Usuario" />
+		 
+		 </h:panelGrid>
+
+		</p:panel>
+
+	</h:form>  
+
+</h:body>
+</html>
