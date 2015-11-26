@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -30,7 +31,9 @@ public class NuevoUsuarioController {
 	private Integer mes;
 	private Map<String, Integer> mapMeses;
 	
-
+	private List<String> restriccionesSelected;
+	private List<String> restricciones;
+	private Map<String, String> mapRestricciones;
     
 //	LocalDate date = new LocalDate;
  
@@ -64,7 +67,21 @@ public class NuevoUsuarioController {
         mapMeses.put("Octubre", 10);
         mapMeses.put("Nobiembre", 11);
         mapMeses.put("Diciembre", 12);
+        
+        
+        //Generate Map de restricciones
+        mapRestricciones = new LinkedHashMap<String, String>();
+        mapRestricciones.put("Diabetico", "Azucar");
+        mapRestricciones.put("Celiaco", "Gluten");
+        mapRestricciones.put("Vegetariano", "Carne");
+        mapRestricciones.keySet();
 
+        //Populate restricciones
+        restricciones = new ArrayList<String>(mapRestricciones.keySet());
+              
+        
+   
+        
     }
  
    
@@ -150,4 +167,44 @@ public class NuevoUsuarioController {
 	public void setMapMeses(Map<String, Integer> mapMeses) {
 		this.mapMeses = mapMeses;
 	}
+
+
+
+	public List<String> getRestriccionesSelected() {
+		return restriccionesSelected;
+	}
+
+
+
+	public void setRestriccionesSelected(List<String> restriccionesSelected) {
+		this.restriccionesSelected = restriccionesSelected;
+	}
+
+
+
+	public List<String> getRestricciones() {
+		return restricciones;
+	}
+
+
+
+	public void setRestricciones(List<String> restricciones) {
+		this.restricciones = restricciones;
+	}
+
+
+
+	public Map<String, String> getMapRestricciones() {
+		return mapRestricciones;
+	}
+
+
+
+	public void setMapRestricciones(Map<String, String> mapRestricciones) {
+		this.mapRestricciones = mapRestricciones;
+	}
+
+
+
+
 }

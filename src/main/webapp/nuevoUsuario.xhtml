@@ -47,18 +47,45 @@
 	    			<f:selectItems value="#{nuevoUsuarioController.anios}" />
 				</h:selectOneMenu>
 				
-		 	
 		 	</h:panelGrid>
 		    
-		    
-		    
-		    <p:commandButton action="#{nuevoUsuarioController.crear}" value="Crear Usuario" />
-		 
-		 </h:panelGrid>
-
-		</p:panel>
+			<h:outputLabel value="Restricciones: " />		    
+			<p:selectManyMenu value="#{nuevoUsuarioController.restriccionesSelected}">
+    			<f:selectItems value="#{nuevoUsuarioController.restricciones}" />
+			</p:selectManyMenu>
+			
+		</h:panelGrid>
+		
+	  </p:panel>
 
 	</h:form>  
 
+
+	<h:form>  
+		<p:panel>
+		<h:panelGrid columns="1" cellpadding="1">
+			<h:panelGrid columns="2" cellpadding="1">
+				 <h:outputLabel value="Preferencia:" />
+			     <p:inputText />
+			</h:panelGrid>
+			
+			<p:commandButton action="#{nuevoUsuarioController.crear}" value="Agregar" />
+			
+			<p:dataTable>
+			 	<p:column headerText="Preferencias" >
+		        <h:outputText />
+		       	</p:column>
+			</p:dataTable>
+		</h:panelGrid>
+		
+		</p:panel>
+	</h:form>
+	
+	  
+	<br></br>	
+	<p:commandButton action="#{nuevoUsuarioController.crear}" value="Crear Usuario" />		
+		
+	
+	
 </h:body>
 </html>
