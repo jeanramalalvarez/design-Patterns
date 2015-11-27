@@ -3,6 +3,8 @@ package ar.edu.utn.d2s.controllers;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,15 +13,23 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 
 import org.joda.time.LocalDate;
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
+
+import ar.edu.utn.d2s.me.Restriccion;
+import ar.edu.utn.d2s.me.Usuario;
  
 @ManagedBean
+@ViewScoped
 public class NuevoUsuarioController {
      
 	private Integer dia;
@@ -34,9 +44,12 @@ public class NuevoUsuarioController {
 	private List<String> restriccionesSelected;
 	private List<String> restricciones;
 	private Map<String, String> mapRestricciones;
+	
+	private String preferencia;
+	private Set<String> preferencias;
+	
+	private Usuario usuario;
     
-//	LocalDate date = new LocalDate;
- 
     @PostConstruct
     public void init() {
         
@@ -79,17 +92,43 @@ public class NuevoUsuarioController {
         //Populate restricciones
         restricciones = new ArrayList<String>(mapRestricciones.keySet());
               
+        //Instatiate preferencias
+        preferencias = new HashSet<String>();
         
-   
-        
+        //Create usuario temporal
+        usuario = new Usuario();
+       
     }
  
    
      
-    public void crear () {
-        addMessage("Success", "Data saved");
+    public String crear () {
+    	//Terminate to create usuario
+    	usuario.setFechaNacimiento(new LocalDate(anio, mes, dia));
+    	for (String restriccion : restriccionesSelected) {
+			usuario.agregarRestriccion(new Restriccion(restriccion, mapRestricciones.get(restriccion)));
+		}
+    	usuario.setPreferencias(preferencias);
+    	
+    	//Validate user with model
+    	
+    	//Persist user with DAO
+    	
+    	//Message will be show in next page
+    	FacesContext facesContext = FacesContext.getCurrentInstance();
+    	Flash flash = facesContext.getExternalContext().getFlash();
+    	flash.setKeepMessages(true);
+    	flash.setRedirect(true);
+    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Usuario creardo con exito!", "Ahora puede loguearse!"));
+        return "login?faces-redirect=true";
     }
 
+    public String agregarPreferencia () {
+        if (preferencia != "") {
+        	preferencias.add(preferencia);			
+		}
+        return null;
+    }
      
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
@@ -202,6 +241,43 @@ public class NuevoUsuarioController {
 
 	public void setMapRestricciones(Map<String, String> mapRestricciones) {
 		this.mapRestricciones = mapRestricciones;
+	}
+
+
+
+	public String getPreferencia() {
+		return preferencia;
+	}
+
+
+
+	public void setPreferencia(String preferencia) {
+		this.preferencia = preferencia;
+	}
+
+
+
+	public Set<String> getPreferencias() {
+
+		return preferencias;
+	}
+
+
+
+	public void setPreferencias(HashSet<String> preferencias) {
+		this.preferencias = preferencias;
+	}
+
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 

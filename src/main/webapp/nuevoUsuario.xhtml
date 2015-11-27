@@ -13,8 +13,8 @@
 </h:head>
 
 <h:body>
-	
 	<h:form>  
+		
 		<p:panel id="panel" header="Nuevo Usuario" style="margin-bottom:10px;">
 
 		        <p:messages id="messages" />
@@ -22,13 +22,13 @@
 		 <h:panelGrid columns="2" cellpadding="5">
 			
 			 <h:outputLabel value="Nombre:" />
-		     <p:inputText />
+		     <p:inputText value="#{nuevoUsuarioController.usuario.nombre}"/>
 		     
 		     <h:outputLabel value="Mail:" />
-		     <p:inputText />
+ 			 <p:inputText value="#{nuevoUsuarioController.usuario.mail}"/>
 		     
 		     <h:outputLabel value="Password:" />
-		     <p:inputText />		 
+			  <p:inputText value="#{nuevoUsuarioController.usuario.password}"/>
 		    
 			
 			<h:outputLabel value="Fecha  de Nacimiento: " />
@@ -58,34 +58,30 @@
 		
 	  </p:panel>
 
-	</h:form>  
-
-
-	<h:form>  
+ 
 		<p:panel>
 		<h:panelGrid columns="1" cellpadding="1">
+			
 			<h:panelGrid columns="2" cellpadding="1">
 				 <h:outputLabel value="Preferencia:" />
-			     <p:inputText />
+			     <p:inputText value="#{nuevoUsuarioController.preferencia}"/>
 			</h:panelGrid>
 			
-			<p:commandButton action="#{nuevoUsuarioController.crear}" value="Agregar" />
+			<p:commandButton action="#{nuevoUsuarioController.agregarPreferencia}" value="Agregar" update="@form"/>
 			
-			<p:dataTable>
+			<p:dataTable var="preferencia" value="#{nuevoUsuarioController.preferencias}">
 			 	<p:column headerText="Preferencias" >
-		        <h:outputText />
+					<h:outputText value="#{preferencia}" />
 		       	</p:column>
 			</p:dataTable>
 		</h:panelGrid>
 		
 		</p:panel>
-	</h:form>
 	
 	  
-	<br></br>	
-	<p:commandButton action="#{nuevoUsuarioController.crear}" value="Crear Usuario" />		
-		
+	<br/>	
+	<p:commandButton action="#{nuevoUsuarioController.crear}" value="Crear Usuario" icon="ui-icon-script" />		
 	
-	
+	</h:form>
 </h:body>
 </html>
