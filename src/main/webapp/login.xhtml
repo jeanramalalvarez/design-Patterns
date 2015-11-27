@@ -16,7 +16,7 @@
 	
 	<h:form>  
 		<p:panel id="panel" header="Bienvenido al Sistema ¿Qué Comemos?"  >
-
+		        
 		        <p:messages id="messages" showDetail="true"/>
 
 		        <h:panelGrid columns="2" cellpadding="5">
@@ -27,8 +27,8 @@
 		            <p:inputText id="inputPassword" required="false" />
 		        </h:panelGrid>
 
-				<p:commandButton action="index?faces-redirect=true" value="Login"/>
-   				<p:commandButton action="nuevoUsuario?faces-redirect=true" value="¿Nuevo Usuario?" />
+				<p:commandButton action="index?faces-redirect=true" value="Login" id="loginCB"/>
+   				<p:commandButton action="nuevoUsuario?faces-redirect=true" value="¿Nuevo Usuario?" id="nuevoUsuarioCB"/>
 		
 			</p:panel>
 

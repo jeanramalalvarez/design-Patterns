@@ -114,7 +114,7 @@ public class NuevoUsuarioController {
     	
     	//Persist user with DAO
     	
-    	//Message will be show in next page
+    	//Message will be show in next page. The next view will show message in first p:message with property "for=null" 
     	FacesContext facesContext = FacesContext.getCurrentInstance();
     	Flash flash = facesContext.getExternalContext().getFlash();
     	flash.setKeepMessages(true);
