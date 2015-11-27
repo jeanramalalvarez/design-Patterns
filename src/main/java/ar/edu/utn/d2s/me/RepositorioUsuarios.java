@@ -29,12 +29,20 @@ public class RepositorioUsuarios {
 			throw new UsuarioInvalidoException("Error: Ya existe usuario con mail " + usuario.getMail());
 		}
 		
-		if (usuario.getNombre() == null) {
+		if (usuario.getNombre() == null || usuario.getNombre() == "")  {
 			throw new UsuarioInvalidoException("Error: El nombre de usuario no puede ser null");
 		}
 		
 		if (usuario.getEdad() < 18) {
 			throw new UsuarioInvalidoException("Error: El usuario debe tener mas de 18 años, no " + usuario.getEdad() );
+		}
+		
+		if (usuario.getMail() == null || usuario.getMail() == "")  {
+			throw new UsuarioInvalidoException("Error: El mail de usuario no puede ser null");
+		}
+		
+		if (usuario.getPassword() == null || usuario.getPassword() == "")  {
+			throw new UsuarioInvalidoException("Error: El password de usuario no puede ser null");
 		}
 	}
 }
