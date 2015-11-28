@@ -17,17 +17,18 @@
 	<h:form>  
 		<p:panel id="panel" header="Bienvenido al Sistema ¿Qué Comemos?"  >
 		        
-		        <p:messages id="messages" showDetail="true"/>
+		        <p:messages id="messages" showDetail="false"  autoUpdate="true"/>
 
 		        <h:panelGrid columns="2" cellpadding="5">
-		            <h:outputLabel for="inputUsuario" value="Usuario:" />
-		            <p:inputText id="inputUsuario" required="false" />
+		            <h:outputLabel value="Usuario:" />
+		            <p:inputText  value="#{loginController.mail}"  label="Usuario"/>
 		 
-		            <p:outputLabel for="inputPassword" value="Contraseña:" />
-		            <p:inputText id="inputPassword" required="false" />
+		            <p:outputLabel value="Contraseña:" />
+					<p:password value="#{loginController.password}"  label="Password"></p:password>
+		    
 		        </h:panelGrid>
 
-				<p:commandButton action="index?faces-redirect=true" value="Login" id="loginCB"/>
+				<p:commandButton action="#{loginController.login}" value="Login" id="loginCB"/>
    				<p:commandButton action="nuevoUsuario?faces-redirect=true" value="¿Nuevo Usuario?" id="nuevoUsuarioCB"/>
 		
 			</p:panel>

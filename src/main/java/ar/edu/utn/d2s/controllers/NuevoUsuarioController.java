@@ -108,10 +108,7 @@ public class NuevoUsuarioController {
         
         //Create usuario temporal
         usuario = new Usuario();
-        
-        //Load users repository for validations
-        repositorioUsuarios = getRepositorioUsuarios();
-       
+     
     }
  
    
@@ -127,6 +124,8 @@ public class NuevoUsuarioController {
     	usuario.setPreferencias(preferencias);
     	
     	//Validate user with model
+    	//Load users repository for validations
+        repositorioUsuarios = getRepositorioUsuarios();
     	try {
 			repositorioUsuarios.agregarUsuario(usuario);
 		} catch (UsuarioInvalidoException e) {
