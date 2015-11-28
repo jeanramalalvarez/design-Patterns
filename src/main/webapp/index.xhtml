@@ -9,19 +9,65 @@
 
 
 <h:head>
-	<title>Index</title>
+	<title>¿Qué comemos?</title>
 </h:head>
 
 <h:body>
 	
-	<h:form>  
-		<p:panel id="panel" header="Index" style="margin-bottom:10px;">
+	<h:form>
 
-		        <p:messages id="messages" />
-
-
-		</p:panel>
-	</h:form>  
+	 	<p:growl autoUpdate="true"/>
+	    
+	    <p:menu style="width:287px ">
+				<p:menuitem value="Menu Principal" icon="ui-icon-home"/>
+		</p:menu>
+	    
+	    <p:panelMenu style="width:300px ">
+		
+	            <p:submenu label="Recetas">
+	                    <p:menuitem value="Crear"/>
+	                    <p:menuitem value="Planificar"/>
+	                   	<p:menuitem value="Calificar"/>
+	            </p:submenu>
+	            
+	            <p:submenu label="Usuario">
+	                    <p:menuitem value="Perfil"/>
+	            </p:submenu>
+	            
+	            <p:submenu label="Grupos">
+	                    <p:menuitem value="Mis Grupos"/>
+	            </p:submenu>
+	            
+	            <p:submenu label="Recomendaciones">
+	                    <p:menuitem value="Dia/Horario"/>
+	                   	<p:menuitem value="Balanceo"/>
+	            </p:submenu>
+	            
+	            <p:submenu label="Reportes">
+		            <p:submenu label="Comidas programadas">
+		                    <p:menuitem value="Periodo"/>
+		                   	<p:menuitem value="Ingrediente"/>
+		                	<p:menuitem value="Rango de calorias"/>
+		            		<p:menuitem value="Nombre"/>
+		           			<p:menuitem value="Grupo"/>
+		           			<p:menuitem value="Persona que lo compartio"/>
+		            </p:submenu>
+	                
+	                <p:menuitem value="Recetas nuevas"/>
+	            </p:submenu>
+	           
+	            <p:submenu label="Estadisticas">
+		            <p:submenu label="Comidas programadas">
+		                    <p:menuitem value="Semanal"/>
+		                   	<p:menuitem value="Mensual"/>
+		                	<p:menuitem value="Por Estacion"/>
+		            </p:submenu>
+	               
+	                <p:menuitem value="Recetas nuevas"/>
+	            </p:submenu>
+	            
+      	    </p:panelMenu>
+	</h:form>
 
 </h:body>
 </html>
