@@ -55,7 +55,6 @@ public class NuevaRecetaController {
 	@ManagedProperty(value="#{usuarioController}")
 	private UsuarioController usuarioController;
 	
-	private RepositorioUsuarios repositorioUsuarios;
     @PostConstruct
     public void init() {
         
@@ -98,25 +97,24 @@ public class NuevaRecetaController {
 		} catch (RecetaInvalidaException e) {
 			// TODO Auto-generated catch block
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"", e.getMessage()));
+	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
 	    	e.printStackTrace();
 	    	return "nuevaReceta";
 		}
-//    	
-//    	
-//    	//Persist user with DAO
-//    	Session session = HibernateUtil.getSessionFactory().openSession();
-//    	Transaction tx = session.beginTransaction();
-//		session.save(usuario);
-//		tx.commit();
-//		session.close();
-//      	
-//    	//Message will be show in next page. The next view will show message in first p:message with property "for=null" 
-//		FacesContext facesContext = FacesContext.getCurrentInstance();
-//		Flash flash = facesContext.getExternalContext().getFlash();
-//    	flash.setKeepMessages(true);
-//    	flash.setRedirect(true);
-//    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Usuario creardo con exito!", ""));
+
+    	//Persist user with DAO
+    	Session session = HibernateUtil.getSessionFactory().openSession();
+    	Transaction tx = session.beginTransaction();
+		session.save(receta);
+		tx.commit();
+		session.close();
+      	
+    	//Message will be show in next page. The next view will show message in first p:message with property "for=null" 
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+    	flash.setKeepMessages(true);
+    	flash.setRedirect(true);
+    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Receta crearda con exito!", ""));
         return "index?faces-redirect=true";
     }
 
