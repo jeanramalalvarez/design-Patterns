@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -45,16 +46,14 @@ public class LoginController {
 	private String mail;
 	private String password;
 	
+	@ManagedProperty(value="#{usuarioController}")
+	private UsuarioController usuarioController;
+	
     @PostConstruct
     public void init() {
-
      
     }
  
-   
-     
-  
-
 	public String login () {
     	//Validate user
 		Usuario usuario = buscarUsuario();
@@ -70,6 +69,8 @@ public class LoginController {
     	flash.setRedirect(true);
     	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Usuario " + usuario.getNombre() + " Logueado!", ""));
        
+    	//Setter user in backing bean
+    	this.usuarioController.setUsuario(usuario);
 		return "index?faces-redirect=true";
     }
 
@@ -140,6 +141,14 @@ public class LoginController {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public UsuarioController getUsuarioController() {
+		return usuarioController;
+	}
+
+	public void setUsuarioController(UsuarioController usuarioController) {
+		this.usuarioController = usuarioController;
 	}
 
 

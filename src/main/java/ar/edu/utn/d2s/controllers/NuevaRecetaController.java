@@ -16,6 +16,7 @@ import java.util.TreeSet;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -33,6 +34,7 @@ import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 
+import ar.edu.ut.d2s.exceptions.RecetaInvalidaException;
 import ar.edu.ut.d2s.exceptions.UsuarioInvalidoException;
 import ar.edu.utn.d2s.hibernate.HibernateUtil;
 import ar.edu.utn.d2s.me.Receta;
@@ -49,7 +51,10 @@ public class NuevaRecetaController {
 	private Set<String> ingredientes;
 	
 	private Receta receta;
-
+	
+	@ManagedProperty(value="#{usuarioController}")
+	private UsuarioController usuarioController;
+	
 	private RepositorioUsuarios repositorioUsuarios;
     @PostConstruct
     public void init() {
@@ -84,26 +89,19 @@ public class NuevaRecetaController {
 	public String crear () {
 		//Terminate to create receta
 		receta.setIngredientes(ingredientes);
+		receta.setAutor(usuarioController.getUsuario());
 		
-		
-//    	usuario.setFechaNacimiento(new LocalDate(anio, mes, dia));
-//    	for (String restriccion : restriccionesSelected) {
-//			usuario.agregarRestriccion(new Restriccion(restriccion, mapRestricciones.get(restriccion)));
-//		}
-//    	usuario.setPreferencias(preferencias);
-//    	
-//    	//Validate user with model
-//    	//Load users repository for validations
-//        repositorioUsuarios = getRepositorioUsuarios();
-//    	try {
-//			repositorioUsuarios.agregarUsuario(usuario);
-//		} catch (UsuarioInvalidoException e) {
-//			// TODO Auto-generated catch block
-//			FacesContext facesContext = FacesContext.getCurrentInstance();
-//	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"", e.getMessage()));
-//	    	e.printStackTrace();
-//	    	return "nuevoUsuario";
-//		}
+
+    	//Validate recipe with model
+		try {
+			usuarioController.getUsuario().agregarReceta(receta);
+		} catch (RecetaInvalidaException e) {
+			// TODO Auto-generated catch block
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"", e.getMessage()));
+	    	e.printStackTrace();
+	    	return "nuevaReceta";
+		}
 //    	
 //    	
 //    	//Persist user with DAO
@@ -219,6 +217,22 @@ public class NuevaRecetaController {
 
 	public void setIngredientes(Set<String> ingredientes) {
 		this.ingredientes = ingredientes;
+	}
+
+
+
+
+
+	public UsuarioController getUsuarioController() {
+		return usuarioController;
+	}
+
+
+
+
+
+	public void setUsuarioController(UsuarioController usuarioController) {
+		this.usuarioController = usuarioController;
 	}
 
 

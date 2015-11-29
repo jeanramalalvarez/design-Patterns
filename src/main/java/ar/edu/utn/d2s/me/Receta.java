@@ -20,18 +20,18 @@ public class Receta {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="ID_Usuario") 
 	private Usuario usuario;
 	
 	private String nombre;
 
-	@ElementCollection(fetch=FetchType.LAZY)
+	@ElementCollection(fetch=FetchType.EAGER)
     @CollectionTable(name="Tipo_comida", joinColumns=@JoinColumn(name="ID_Receta"))
     @Column(name="tipo_comida")
 	private Set<String> tiposDeComida;
 	
-	@ElementCollection(fetch=FetchType.LAZY)
+	@ElementCollection(fetch=FetchType.EAGER)
     @CollectionTable(name="Ingrediente", joinColumns=@JoinColumn(name="ID_Receta"))
     @Column(name="ingrediente")
 	private Set<String> ingredientes;
@@ -40,7 +40,7 @@ public class Receta {
     private String procedimiento;
     private byte  dificultad;
     
-    @ElementCollection(fetch=FetchType.LAZY)
+    @ElementCollection(fetch=FetchType.EAGER)
     @CollectionTable(name="Temporada", joinColumns=@JoinColumn(name="ID_Receta"))
     @Column(name="temporada")
     private Set<String> temporadas;
@@ -48,11 +48,11 @@ public class Receta {
     private int calorias;
     
     
-    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name="ID_Receta") 
     private Set<Calificacion> calificaciones;
     
-	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(
 			name = "GrupoReceta",		
 			joinColumns = {@JoinColumn(name = "ID_Receta")},

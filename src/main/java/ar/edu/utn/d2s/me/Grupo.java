@@ -24,13 +24,13 @@ public class Grupo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@ManyToMany(mappedBy = "grupos",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@ManyToMany(mappedBy = "grupos",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<Usuario> miembros;
 	
 	private String nombre;
 	
 	
-	@ManyToMany(mappedBy = "grupos", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToMany(mappedBy = "grupos", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<Receta> recetasCompartidas;	
 	
 	

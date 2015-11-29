@@ -10,10 +10,10 @@ public class Calificacion {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY) 	
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER) 	
 	private Grupo grupo;
 	
-	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY) 		
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER) 		
 	private Usuario usuario;
 	
 	private int valor;

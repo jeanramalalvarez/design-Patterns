@@ -29,13 +29,13 @@ public class Usuario {
 	private String nombre;
 	private String mail;
 	
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
     @CollectionTable(name="Preferencia", joinColumns=@JoinColumn(name="ID_Usuario"))
     @Column(name="preferencia")
 	private Set<String> preferencias;		
 	
 	
-	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(
 			name = "UsuarioGrupo",		
 			joinColumns = {@JoinColumn(name = "ID_Usuario")},
@@ -43,15 +43,15 @@ public class Usuario {
 			)
 	private Set<Grupo> grupos;
 	
-	@OneToMany (mappedBy = "usuario" , cascade = CascadeType.ALL)
+	@OneToMany (mappedBy = "usuario" , cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<Receta> recetasPropias;
 	
 	
-    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name="ID_Usuario")  
 	private Set<Comida> comidasPlanificadas;
 	
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="ID_Usuario") 
 	private Set<Restriccion> restricciones;
 	
