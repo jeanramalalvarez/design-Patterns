@@ -26,8 +26,11 @@
 		
 	            <p:submenu label="Recetas">
 	                    <p:menuitem value="Crear" action="nuevaReceta?faces-redirect=true"/>
-	                    <p:menuitem value="Planificar" action="planificarReceta?faces-redirect=true"/>
-	                    <p:menuitem value="Replanificar" action="replanificarComida?faces-redirect=true"/>	                   	
+	                    <p:submenu label="Planificar">
+		                    <p:menuitem value="Planificar comida" action="planificarReceta?faces-redirect=true"/>
+		                    <p:menuitem value="Replanificar comida" action="replanificarComida?faces-redirect=true"/>	                   		                    
+		                    <p:menuitem value="Consultar planificacion" />	                   		                    	                    	
+	                    </p:submenu>
 	                   	<p:menuitem value="Calificar"/>
 	            </p:submenu>
 	            
