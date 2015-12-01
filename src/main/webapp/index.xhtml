@@ -26,12 +26,14 @@
 		
 	            <p:submenu label="Recetas">
 	                    <p:menuitem value="Crear" action="nuevaReceta?faces-redirect=true"/>
-	                    <p:menuitem value="Planificar"/>
+	                    <p:menuitem value="Planificar" action="planificarReceta?faces-redirect=true"/>
+	                    <p:menuitem value="Replanificar" action="replanificarComida?faces-redirect=true"/>	                   	
 	                   	<p:menuitem value="Calificar"/>
 	            </p:submenu>
 	            
-	            <p:submenu label="Usuario">
+	            <p:submenu label="#{'Usuario('  += usuarioController.usuario.mail += ')'}">
 	                    <p:menuitem value="Perfil"/>
+	                    <p:menuitem value="Salir" action="#{usuarioController.logout}"/>	                    
 	            </p:submenu>
 	            
 	            <p:submenu label="Grupos">

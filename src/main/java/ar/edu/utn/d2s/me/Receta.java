@@ -59,7 +59,8 @@ public class Receta {
 			inverseJoinColumns = {@JoinColumn(name =  "ID_Grupo")}
 			)
     private Set<Grupo> grupos;
-    
+    private Boolean precargada;
+	
 	public Receta() {
 		// TODO Auto-generated constructor stub
 		usuario = null;
@@ -72,6 +73,7 @@ public class Receta {
 		setCalorias(0);
 		setCalificaciones(new HashSet<Calificacion>());
 		grupos = new HashSet<Grupo>();
+		setPrecargada(false);
 	}
 	
 	public Usuario getAutor() {
@@ -326,6 +328,38 @@ public class Receta {
 	public void agregarGrupo(Grupo grupo) {
 		// TODO Auto-generated method stub
 		grupos.add(grupo);
+	}
+
+	public Boolean getPrecargada() {
+		return precargada;
+	}
+
+	public void setPrecargada(Boolean precargada) {
+		this.precargada = precargada;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Set<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(Set<Grupo> grupos) {
+		this.grupos = grupos;
 	}
 
 }

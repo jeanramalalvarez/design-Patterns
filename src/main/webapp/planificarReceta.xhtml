@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"  
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<h:head>
+	<title>Planificar Receta</title>
+</h:head>
+
+<h:body>
+
+	<p:layout>
+
+	    <p:layoutUnit position="west" resizable="true" style="border:0px;min-width:300px;">
+
+	        <ui:include src="index.xhtml" />
+
+	    </p:layoutUnit>
+	 
+	    <p:layoutUnit position="center" style="border:0px">
+
+			<h:form>
+				<p:panel id="panel" header="Planificar Comida" style="margin-bottom:10px">
+			 	<p:growl autoUpdate="true" showDetail="true"/>
+			 	
+				 <h:panelGrid columns="2" cellpadding="5" >  	
+					<h:outputText value="Horario:" />
+					<h:selectOneMenu
+						value="#{planificarRecetaController.comida.tipoComida}">
+						<f:selectItem itemValue="#{null}"/>
+						<f:selectItem itemLabel="Desayuno" itemValue="Desayuno" />
+						<f:selectItem itemLabel="Almuerzo" itemValue="Almuerzo" />
+						<f:selectItem itemLabel="Merienda" itemValue="Merienda" />
+						<f:selectItem itemLabel="Cena" itemValue="Cena" />
+					</h:selectOneMenu>
+
+					<p:outputLabel for="inline" value="Fecha" />
+					<p:calendar id="inline"
+						value="#{planificarRecetaController.fecha}"
+						rendered="true" showWeek="true" selectOtherMonths="trues"/>
+						
+				  </h:panelGrid>
+				</p:panel>
+				
+				
+				<p:panel columns="1" layout="grid" id="recetasBuscadas">
+									
+						<p:dataTable id="sugerenciasDT" var="sugerencia"
+							value="#{planificarRecetaController.usuarioController.usuario.listarRecetasDisponibles()}"
+							selectionMode="single" reflow="true"
+							selection="#{planificarRecetaController.comida.receta}"
+							rowKey="#{sugerencia.id}" rows="10">
+							
+							<f:facet name="header" >
+                            	Recetas disponibles
+                        	</f:facet>
+						
+							<p:column headerText="Id">
+								<h:outputText value="#{sugerencia.id}" />
+							</p:column>
+							
+							<p:column headerText="Titulo de Receta">
+								<h:outputText value="#{sugerencia.nombre}" />
+							</p:column>
+	
+							<p:column headerText="Calorias">
+								<h:outputText value="#{sugerencia.calorias}  " />
+							</p:column>
+							
+							<p:column headerText="Horarios">
+								<h:outputText value="#{sugerencia.tiposDeComida}  " />
+							</p:column>
+	
+							<p:column headerText=" Nivel de dificultad">
+							<h:outputText value="#{sugerencia.dificultad}" />
+							</p:column>
+	
+							</p:dataTable>
+				</p:panel>
+				
+				
+				<br/>	
+				<p:commandButton value="Planificar" action="#{planificarRecetaController.planificar}"  icon="ui-icon-script" />		
+				<p:commandButton value="Cancelar" action="index?faces-redirect=true"  icon="ui-icon-script" />	
+							
+			</h:form>	       
+	       
+	    </p:layoutUnit>
+	
+	</p:layout>
+	
+</h:body>
+</html>

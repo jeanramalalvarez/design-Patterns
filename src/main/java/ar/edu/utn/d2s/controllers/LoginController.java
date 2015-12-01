@@ -35,6 +35,8 @@ import org.primefaces.model.menu.MenuModel;
 
 import ar.edu.ut.d2s.exceptions.UsuarioInvalidoException;
 import ar.edu.utn.d2s.hibernate.HibernateUtil;
+import ar.edu.utn.d2s.me.Receta;
+import ar.edu.utn.d2s.me.RepositorioRecetas;
 import ar.edu.utn.d2s.me.RepositorioUsuarios;
 import ar.edu.utn.d2s.me.Restriccion;
 import ar.edu.utn.d2s.me.Usuario;
@@ -70,9 +72,10 @@ public class LoginController {
     	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Usuario " + usuario.getNombre() + " Logueado!", ""));
        
     	//Setter user in backing bean
+    	usuario.setRepositorioRecetas(getRepositorioRecetas());
     	this.usuarioController.setUsuario(usuario);
 		return "index?faces-redirect=true";
-    }
+    }	
 
 
     
@@ -99,16 +102,17 @@ public class LoginController {
 
 
  
-	private RepositorioUsuarios getRepositorioUsuarios() {
-		RepositorioUsuarios repositorioUsuarios = new RepositorioUsuarios();
+	private RepositorioRecetas getRepositorioRecetas() {
+		RepositorioRecetas repositorioRecetas = new RepositorioRecetas();
 		// TODO Auto-generated method stub
-		//Levantar todos los usuarios de la base datos 
+		//Levantar las recetas de la base datos que sean precargadas
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		//Consulto
-		Criteria usuarioCriteria = session.createCriteria(Usuario.class);
-		repositorioUsuarios.setUsuarios(new HashSet<Usuario>(usuarioCriteria.list()));
+		Criteria recetaCriteria = session.createCriteria(Receta.class);
+		recetaCriteria.add(Restrictions.eq("precargada", true));
+		repositorioRecetas.setRecetas(new HashSet<Receta>(recetaCriteria.list()));
 		session.close();
-		return repositorioUsuarios;
+		return repositorioRecetas;
 	}
 
 
@@ -152,4 +156,16 @@ public class LoginController {
 	}
 
 
+	private RepositorioUsuarios getRepositorioUsuarios() {
+		RepositorioUsuarios repositorioUsuarios = new RepositorioUsuarios();
+		// TODO Auto-generated method stub
+		//Levantar todos los usuarios de la base datos 
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		//Consulto
+		Criteria usuarioCriteria = session.createCriteria(Usuario.class);
+		repositorioUsuarios.setUsuarios(new HashSet<Usuario>(usuarioCriteria.list()));
+		session.close();
+		return repositorioUsuarios;
+	}
+	
 }

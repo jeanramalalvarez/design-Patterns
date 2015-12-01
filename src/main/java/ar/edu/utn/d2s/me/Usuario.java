@@ -241,7 +241,7 @@ public class Usuario {
 		// TODO Auto-generated method stub
 		for (Comida comida : comidasPlanificadas) {
 			if (comida.getTipoComida().equals(tipoComida) && comida.getFecha().isEqual(fecha)) {
-				comidasPlanificadas.remove(comida);
+			comidasPlanificadas.remove(comida);
 				return true;
 			}
 		}
@@ -364,5 +364,18 @@ public class Usuario {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Set<Comida> getComidasReplanificables(){
+		//todas las comidas 1 semana atras y una semana adelante
+		Set<Comida> comidasReplanificables = new HashSet<Comida>();
+		Planificador planificador = new Planificador();
+		
+		for (Comida comida : comidasPlanificadas) {
+			if (planificador.esValidaFechaDeComida(comida.getFecha())) {
+				comidasReplanificables.add(comida);
+			}
+		}
+		return comidasReplanificables;
 	}
 }

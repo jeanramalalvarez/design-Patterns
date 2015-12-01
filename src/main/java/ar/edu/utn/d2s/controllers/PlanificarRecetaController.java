@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -34,9 +35,13 @@ import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 
+import ar.edu.ut.d2s.exceptions.ComidaInvalidaInvaliException;
+import ar.edu.ut.d2s.exceptions.FechaFueraFueraDeRangoException;
 import ar.edu.ut.d2s.exceptions.RecetaInvalidaException;
 import ar.edu.ut.d2s.exceptions.UsuarioInvalidoException;
 import ar.edu.utn.d2s.hibernate.HibernateUtil;
+import ar.edu.utn.d2s.me.Comida;
+import ar.edu.utn.d2s.me.Planificador;
 import ar.edu.utn.d2s.me.Receta;
 import ar.edu.utn.d2s.me.RepositorioUsuarios;
 import ar.edu.utn.d2s.me.Restriccion;
@@ -44,7 +49,15 @@ import ar.edu.utn.d2s.me.Usuario;
  
 @ManagedBean
 @ViewScoped
-public class NuevaRecetaController {
+public class PlanificarRecetaController {
+	
+	
+	@ManagedProperty(value="#{usuarioController}")
+	private UsuarioController usuarioController;
+	
+	private Comida comida;
+	private Date fecha;
+	
 	private Set<String> horarios;
 	private Set<String> temporadas;
 	private String ingrediente;
@@ -52,32 +65,11 @@ public class NuevaRecetaController {
 	
 	private Receta receta;
 	
-	@ManagedProperty(value="#{usuarioController}")
-	private UsuarioController usuarioController;
-	
     @PostConstruct
     public void init() {
         
-      
-        //Populate horarios
-        horarios = new TreeSet<String>();
-        horarios.add("Desayuno");
-        horarios.add("Almuerzo");
-        horarios.add("Merienda");
-        horarios.add("Cena");
-
-        //Populate temporadas
-        temporadas = new TreeSet<String>();
-        temporadas.add("Otoño");
-        temporadas.add("Invierno");
-        temporadas.add("Primavera");
-        temporadas.add("Verano");
-              
-        //Instatiate preferencias
-        ingredientes = new HashSet<String>();
-        
-        //Create receta temporal
-        receta = new Receta();
+        //Create comida temporal
+        comida = new Comida();
      
     }
  
@@ -85,27 +77,33 @@ public class NuevaRecetaController {
      
   
 
-	public String crear () {
-		//Terminate to create receta
-		receta.setIngredientes(ingredientes);
-		receta.setAutor(usuarioController.getUsuario());
+	public String planificar () {
+		//Terminate to create comida
+		if (fecha == null) {
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione una fecha", ""));
+	    	return "planificarReceta";
+	    }
 		
+		comida.setFecha(new LocalDate(fecha));
 
-    	//Validate recipe with model
+		//Schedule and validate food
+		Planificador planificadorComidas = new Planificador();
 		try {
-			usuarioController.getUsuario().agregarReceta(receta);
-		} catch (RecetaInvalidaException e) {
+			planificadorComidas.planificar(comida, usuarioController.getUsuario());
+		} catch(FechaFueraFueraDeRangoException | ComidaInvalidaInvaliException e) {
 			// TODO Auto-generated catch block
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
 	    	e.printStackTrace();
-	    	return "nuevaReceta";
-		}
+	    	return "planificarReceta";
+		} 
+		
 
-    	//Persist user with DAO
+    	//Persist comida with DAO
     	Session session = HibernateUtil.getSessionFactory().openSession();
     	Transaction tx = session.beginTransaction();
-		session.save(receta);
+		session.save(comida);
 		tx.commit();
 		session.close();
       	
@@ -114,7 +112,7 @@ public class NuevaRecetaController {
 		Flash flash = facesContext.getExternalContext().getFlash();
     	flash.setKeepMessages(true);
     	flash.setRedirect(true);
-    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Receta crearda con exito!", ""));
+    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Comida planificada con exito!", ""));
         return "index?faces-redirect=true";
     }
 
@@ -231,6 +229,38 @@ public class NuevaRecetaController {
 
 	public void setUsuarioController(UsuarioController usuarioController) {
 		this.usuarioController = usuarioController;
+	}
+
+
+
+
+
+	public Comida getComida() {
+		return comida;
+	}
+
+
+
+
+
+	public void setComida(Comida comida) {
+		this.comida = comida;
+	}
+
+
+
+
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+
+
+
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 
 

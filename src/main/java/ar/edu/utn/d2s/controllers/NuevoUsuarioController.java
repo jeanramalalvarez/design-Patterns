@@ -252,12 +252,6 @@ public class NuevoUsuarioController {
 
 
 
-	public List<String> getRestricciones() {
-		return restricciones;
-	}
-
-
-
 	public void setRestricciones(List<String> restricciones) {
 		this.restricciones = restricciones;
 	}
@@ -277,7 +271,7 @@ public class NuevoUsuarioController {
 
 
 	public String getPreferencia() {
-		return preferencia;
+		return "";
 	}
 
 
@@ -323,6 +317,14 @@ public class NuevoUsuarioController {
 		repositorioUsuarios.setUsuarios(new HashSet<Usuario>(usuarioCriteria.list()));
 		session.close();
 		return repositorioUsuarios;
+	}
+
+
+
+
+
+	public List<String> getRestricciones() {
+		return restricciones;
 	}
 
 

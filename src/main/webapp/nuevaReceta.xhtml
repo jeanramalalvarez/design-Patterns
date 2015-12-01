@@ -68,7 +68,7 @@
 					
 					<h:panelGrid columns="2" cellpadding="1">
 						 <h:outputLabel value="Ingrediente:" />
-					     <p:inputText value="#{nuevaRecetaController.ingrediente}"/>
+					     <p:inputText value="#{nuevaRecetaController.ingrediente}" />
 					</h:panelGrid>
 					
 					<p:commandButton action="#{nuevaRecetaController.agregarIngrediente}" value="Agregar" update="@form"/>
@@ -87,7 +87,7 @@
 				  
 				<br/>	
 				<p:commandButton action="#{nuevaRecetaController.crear}" value="Crear Receta" icon="ui-icon-script" />		
-				<p:commandButton action="index" value="Cancelar" icon="ui-icon-script" />			
+				<p:commandButton action="index?faces-redirect=true" value="Cancelar" icon="ui-icon-script" />			
 				
 			</h:form>	       
 	       
