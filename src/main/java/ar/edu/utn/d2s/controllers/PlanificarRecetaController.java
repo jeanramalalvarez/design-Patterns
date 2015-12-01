@@ -103,7 +103,8 @@ public class PlanificarRecetaController {
     	//Persist comida with DAO
     	Session session = HibernateUtil.getSessionFactory().openSession();
     	Transaction tx = session.beginTransaction();
-		session.save(comida);
+		session.update(usuarioController.getUsuario());
+    	session.save(comida);
 		tx.commit();
 		session.close();
       	
