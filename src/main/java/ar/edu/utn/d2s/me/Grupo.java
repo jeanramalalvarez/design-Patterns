@@ -165,6 +165,22 @@ public class Grupo {
 		}
 		return reporteRecetasCompartidas;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Set<Usuario> getMiembros() {
+		return miembros;
+	}
+
+	public void setMiembros(Set<Usuario> miembros) {
+		this.miembros = miembros;
+	}
 	
 	
 

@@ -41,7 +41,7 @@ public class Usuario {
 			joinColumns = {@JoinColumn(name = "ID_Usuario")},
 			inverseJoinColumns = {@JoinColumn(name =  "ID_Grupo")}
 			)
-	private Set<Grupo> grupos;
+	private Set<Grupo>	 grupos;
 	
 	@OneToMany (mappedBy = "usuario" , cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<Receta> recetasPropias;
