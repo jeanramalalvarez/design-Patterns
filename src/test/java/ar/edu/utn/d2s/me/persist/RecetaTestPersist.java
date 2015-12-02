@@ -1,6 +1,7 @@
 package ar.edu.utn.d2s.me.persist;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -96,8 +97,7 @@ public class RecetaTestPersist {
 		//Consulto
 		Criteria recetaCriteria = this.session.createCriteria(Receta.class);
 		recetaCriteria.add(Restrictions.eq("nombre", "Tarta de acelga"));
-		List<Receta> recetas = recetaCriteria.list();
-		assertEquals(1, recetas.size());
+		assertNotNull(recetaCriteria.uniqueResult());
 		this.session.close();
 		
 	}

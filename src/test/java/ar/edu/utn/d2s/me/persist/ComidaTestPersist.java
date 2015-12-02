@@ -1,6 +1,6 @@
 package ar.edu.utn.d2s.me.persist;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -97,16 +97,17 @@ public class ComidaTestPersist {
 		Transaction tx = this.session.beginTransaction();
 		// this.session.save(living);
 		this.session.save(usuarioValido);
+		this.session.save(comidaValida);
 		tx.commit();
 
 		this.session.close();
+		
 		this.session = sessionFactory.openSession();
 		
 		//Consulto
 		Criteria comidaCriteria = this.session.createCriteria(Comida.class);
 		comidaCriteria.add(Restrictions.eq("tipoComida", "ALMUERZO"));
-		List<Comida> comidas = comidaCriteria.list();
-		assertEquals(1, comidas.size());
+		assertNotNull(comidaCriteria.uniqueResult());
 		this.session.close();
 	}
 }

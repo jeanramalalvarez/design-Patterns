@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.GenerationType;
 
+import ar.edu.ut.d2s.exceptions.GrupoInvalidoException;
 import ar.edu.ut.d2s.exceptions.UsuarioExistenteException;
 import ar.edu.ut.d2s.exceptions.UsuarioInvalidoException;
 
@@ -102,11 +103,12 @@ public class Grupo {
 		
 	}
 	
-	public void removerMiembro(Usuario usuario) throws UsuarioInvalidoException{
+	public void removerMiembro(Usuario usuario) throws UsuarioInvalidoException, GrupoInvalidoException{
 		if (!miembros.remove(usuario)) {
-			throw new UsuarioInvalidoException("Error: no se puede remover a un usuario que no es miembro: ");
+			throw new UsuarioInvalidoException("Error: no se puede remover a un usuario que no es miembro ");
 		}
 		removerRecetasCompartidas(usuario);
+		usuario.removerGrupo(this);
 	}
 
 	
@@ -165,6 +167,7 @@ public class Grupo {
 		}
 		return reporteRecetasCompartidas;
 	}
+	
 
 	public int getId() {
 		return id;

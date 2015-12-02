@@ -103,7 +103,7 @@ public class PlanificarComidaTest {
 		comidaReplanificada.setFecha(fechaValida);
 		comidaReplanificada.setTipoComida("ALMUERZO");
 		
-		planificadorComidas.planificar(comidaReplanificada, usuarioValido);
+		planificadorComidas.replanificar(comidaValida, recetaReplanificada, usuarioValido);
 		assertEquals(recetaReplanificada, planificadorComidas.consultarPlanificacion("ALMUERZO", fechaValida, usuarioValido));
 	}
 	
@@ -119,7 +119,7 @@ public class PlanificarComidaTest {
 		Comida comidaConFechaInvalida = new Comida();
 		comidaConFechaInvalida.setReceta(recetaValida);
 		comidaConFechaInvalida.setFecha(new LocalDate(2016/10/1));
-		comidaConFechaInvalida.setTipoComida("ALMUERZO");
+		comidaConFechaInvalida.setTipoComida("CENA");
 		
 		planificadorComidas.planificar(comidaConFechaInvalida, usuarioValido);
 	}
@@ -139,7 +139,7 @@ public class PlanificarComidaTest {
 		Comida comidaConFechaInvalida = new Comida();
 		comidaConFechaInvalida.setReceta(recetaValida);
 		comidaConFechaInvalida.setFecha(new LocalDate());
-		comidaConFechaInvalida.setTipoComida("ALMUERZO");
+		comidaConFechaInvalida.setTipoComida("CENA");
 		
 		planificadorComidas.planificar(comidaConFechaInvalida, usuarioValido);
 	}

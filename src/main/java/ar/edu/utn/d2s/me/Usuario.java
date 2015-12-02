@@ -378,4 +378,11 @@ public class Usuario {
 		}
 		return comidasReplanificables;
 	}
+	
+	public void removerGrupo(Grupo grupo) throws GrupoInvalidoException{
+		if (!grupos.remove(grupo)) {
+			throw new GrupoInvalidoException("Error: : el usuario no se puede remover ya que no pertence al grupo");			
+		}
+		
+	}
 }

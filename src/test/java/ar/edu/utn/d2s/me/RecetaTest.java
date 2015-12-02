@@ -349,7 +349,7 @@ public class RecetaTest {
 	
 	//Si un usuario se borra de un grupo, no debe influir en el historial de los usuarios
 	@Test
-	public void testRemoverMiembroNoInfluyeAlHistorialDeOtrosMiembros() throws UsuarioExistenteException, FechaFueraFueraDeRangoException, ComidaInvalidaInvaliException, UsuarioInvalidoException{
+	public void testRemoverMiembroNoInfluyeAlHistorialDeOtrosMiembros() throws UsuarioExistenteException, FechaFueraFueraDeRangoException, ComidaInvalidaInvaliException, UsuarioInvalidoException, GrupoInvalidoException{
 		Usuario usuarioMiembro = new Usuario();
 		usuarioMiembro.setMail("mailMiembro@gmail.com");
 		usuarioMiembro.setNombre("usuarioMiembro");

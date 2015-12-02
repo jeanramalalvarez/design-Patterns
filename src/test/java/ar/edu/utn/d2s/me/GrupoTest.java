@@ -74,7 +74,7 @@ public class GrupoTest {
 		usuarioValido.compartirReceta(grupoValido, recetaValida);
 	}
 	
-	@Test (expected = UsuarioInvalidoException.class)
+	@Test (expected = GrupoInvalidoException.class)
 	public void testCompartirRecetaUsuarioNoMiembro() throws GrupoInvalidoException, UsuarioInvalidoException{
 		grupoValido.removerMiembro(usuarioValido);
 		usuarioValido.compartirReceta(grupoValido, recetaValida);
@@ -88,13 +88,13 @@ public class GrupoTest {
 	
 	//Al quitar un miembro: Si se trata de quitar un usuario que no es miembro debe generarse un error
 	@Test (expected = UsuarioInvalidoException.class)
-	public void testRemoverUsuarioNoMiembroDeGrupo() throws UsuarioInvalidoException{
+	public void testRemoverUsuarioNoMiembroDeGrupo() throws UsuarioInvalidoException, GrupoInvalidoException{
 		Usuario usuarioNoMiembro = new Usuario();
 		grupoValido.removerMiembro(usuarioNoMiembro);
 	}
 	
 	//Al quitar un miembro: Las recetas del usuario que compartió ya no deben estar disponibles para el grupo
-	public void testAlRemoverMiembroRecetasYaNoDisponiblesParaGrupo() throws UsuarioInvalidoException{
+	public void testAlRemoverMiembroRecetasYaNoDisponiblesParaGrupo() throws UsuarioInvalidoException, GrupoInvalidoException{
 		grupoValido.removerMiembro(usuarioValido);		
 		assertEquals(0, grupoValido.getRecetasCompartidas().size());
 	}

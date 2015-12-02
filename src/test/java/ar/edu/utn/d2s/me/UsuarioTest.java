@@ -18,6 +18,7 @@ public class UsuarioTest {
 		usuarioValido.setNombre("usuarioValido");
 		usuarioValido.setFechaNacimiento(new LocalDate(1989, 5, 26));
 		usuarioValido.agregarPreferencia("preferencia 1");
+		usuarioValido.setPassword("password");
 		repositorioUsuarios.agregarUsuario(usuarioValido);
 	}
 	

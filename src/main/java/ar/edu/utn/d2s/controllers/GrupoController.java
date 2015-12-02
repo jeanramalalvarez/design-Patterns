@@ -37,6 +37,7 @@ import org.primefaces.model.menu.MenuModel;
 
 import ar.edu.ut.d2s.exceptions.ComidaInvalidaInvaliException;
 import ar.edu.ut.d2s.exceptions.FechaFueraFueraDeRangoException;
+import ar.edu.ut.d2s.exceptions.GrupoInvalidoException;
 import ar.edu.ut.d2s.exceptions.RecetaInvalidaException;
 import ar.edu.ut.d2s.exceptions.UsuarioExistenteException;
 import ar.edu.ut.d2s.exceptions.UsuarioInvalidoException;
@@ -105,6 +106,41 @@ public class GrupoController {
         return "index?faces-redirect=true";
     }
 
+	
+	public String salir() throws GrupoInvalidoException{
+
+		if (grupoSeleccionado == null) {
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Debe seleccionar un grupo!", ""));
+	    	return "salirGrupo";
+		}
+		
+		try {
+			grupoSeleccionado.removerMiembro(usuarioController.getUsuario());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,e.getMessage(), ""));
+	    	e.printStackTrace();
+	    	return "salirGrupo";
+		}
+
+		//Update BD
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		session.update(usuarioController.getUsuario());
+		session.update(grupoSeleccionado);
+		tx.commit();
+		session.close();
+		
+		//Message will be show in next page. The next view will show message in first p:message with property "for=null" 
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+    	flash.setKeepMessages(true);
+    	flash.setRedirect(true);
+    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Ha salido correctamente del grupo!", ""));
+        return "index?faces-redirect=true";
+	}
 
    
 
