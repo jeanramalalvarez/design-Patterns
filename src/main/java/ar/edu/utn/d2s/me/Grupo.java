@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GenerationType;
 
 import ar.edu.ut.d2s.exceptions.GrupoInvalidoException;
+import ar.edu.ut.d2s.exceptions.RecetaInvalidaException;
 import ar.edu.ut.d2s.exceptions.UsuarioExistenteException;
 import ar.edu.ut.d2s.exceptions.UsuarioInvalidoException;
 
@@ -25,13 +26,13 @@ public class Grupo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@ManyToMany(mappedBy = "grupos",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy = "grupos",  fetch=FetchType.EAGER)
 	private Set<Usuario> miembros;
 	
 	private String nombre;
 	
 	
-	@ManyToMany(mappedBy = "grupos", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy = "grupos",   fetch=FetchType.EAGER)
 	private Set<Receta> recetasCompartidas;	
 	
 	
@@ -121,12 +122,15 @@ public class Grupo {
 		}
 	}
 
-	public void agregarReceta(Receta recetaUsuario) throws UsuarioInvalidoException{
+	public void agregarReceta(Receta recetaUsuario) throws UsuarioInvalidoException, RecetaInvalidaException{
 		if (!miembros.contains(recetaUsuario.getAutor())) {
 			throw new UsuarioInvalidoException("Error: el usuario no pertenece al grupo, no puede compartir su receta");
 		}
-		recetasCompartidas.add(recetaUsuario);
+		if (!recetasCompartidas.add(recetaUsuario)) {
+			throw new RecetaInvalidaException("Error: la receta ya fue compartida en este grupo: " + this.getNombre());			
+		}
 		recetaUsuario.agregarGrupo(this);
+		
 	}
 	
 	

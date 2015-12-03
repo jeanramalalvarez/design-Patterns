@@ -35,7 +35,7 @@ public class Usuario {
 	private Set<String> preferencias;		
 	
 	
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToMany(  fetch=FetchType.EAGER)
 	@JoinTable(
 			name = "UsuarioGrupo",		
 			joinColumns = {@JoinColumn(name = "ID_Usuario")},
@@ -47,11 +47,11 @@ public class Usuario {
 	private Set<Receta> recetasPropias;
 	
 	
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(  fetch=FetchType.EAGER)
     @JoinColumn(name="ID_Usuario")  
 	private Set<Comida> comidasPlanificadas;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(  fetch=FetchType.EAGER)
 	@JoinColumn(name="ID_Usuario") 
 	private Set<Restriccion> restricciones;
 	
@@ -225,7 +225,7 @@ public class Usuario {
 		recetasPropias.add(recetaUsuario);			
 	}
 	
-	public void compartirReceta(Grupo grupo, Receta recetaPropia) throws GrupoInvalidoException, UsuarioInvalidoException{
+	public void compartirReceta(Grupo grupo, Receta recetaPropia) throws GrupoInvalidoException, UsuarioInvalidoException, RecetaInvalidaException{
 		if (!grupos.contains(grupo)) {
 			throw new GrupoInvalidoException("Error: no se puede compartir una receta en un grupo al que no es miembro");
 		}
@@ -384,5 +384,13 @@ public class Usuario {
 			throw new GrupoInvalidoException("Error: : el usuario no se puede remover ya que no pertence al grupo");			
 		}
 		
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

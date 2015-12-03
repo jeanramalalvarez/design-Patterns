@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Restriccion {
 	
+
 	@Id
 	@Column(name="ID_Restriccion")
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -42,6 +43,29 @@ public class Restriccion {
 		this.ingredienteProhibido = ingredienteProhibido;
 	}
 	
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((restriccion == null) ? 0 : restriccion.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Restriccion other = (Restriccion) obj;
+		if (restriccion == null) {
+			if (other.restriccion != null)
+				return false;
+		} else if (!restriccion.equals(other.restriccion))
+			return false;
+		return true;
+	}
 	
 }

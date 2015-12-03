@@ -39,109 +39,73 @@ import ar.edu.ut.d2s.exceptions.ComidaInvalidaInvaliException;
 import ar.edu.ut.d2s.exceptions.FechaFueraFueraDeRangoException;
 import ar.edu.ut.d2s.exceptions.GrupoInvalidoException;
 import ar.edu.ut.d2s.exceptions.RecetaInvalidaException;
-import ar.edu.ut.d2s.exceptions.UsuarioExistenteException;
 import ar.edu.ut.d2s.exceptions.UsuarioInvalidoException;
 import ar.edu.utn.d2s.hibernate.HibernateUtil;
 import ar.edu.utn.d2s.me.Comida;
 import ar.edu.utn.d2s.me.Grupo;
 import ar.edu.utn.d2s.me.Planificador;
 import ar.edu.utn.d2s.me.Receta;
-import ar.edu.utn.d2s.me.RepositorioRecetas;
 import ar.edu.utn.d2s.me.RepositorioUsuarios;
 import ar.edu.utn.d2s.me.Restriccion;
 import ar.edu.utn.d2s.me.Usuario;
  
 @ManagedBean
 @ViewScoped
-public class GrupoController {
+public class CompartirRecetaController {
 	
 	
 	@ManagedProperty(value="#{usuarioController}")
 	private UsuarioController usuarioController;
 
+	private Receta recetaSeleccionada;
 	private Grupo grupoSeleccionado;
 	private Set<Grupo> gruposDisponibles;
-	
+
 	
     @PostConstruct
     public void init() {
-    	gruposDisponibles = obtenerGruposDisponiblesBD();
+
+    	gruposDisponibles = getGruposDisponiblesBD();
+    	
     }
- 
-   
-    
-	public String  unirse() {
-		
-		if (grupoSeleccionado == null) {
+
+
+	public String  compartir() {
+		if (recetaSeleccionada == null || grupoSeleccionado == null) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Debe seleccionar un grupo!", ""));
-	    	return "unirseGrupo";
+	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Debe seleccionar una receta y grupo dónde compartirla", ""));
+	        return "compartirReceta";
 		}
 		
 		try {
-			grupoSeleccionado.agregarMiembro(usuarioController.getUsuario());
-		} catch (UsuarioExistenteException e) {
+			usuarioController.getUsuario().compartirReceta(grupoSeleccionado, recetaSeleccionada);
+		} catch (GrupoInvalidoException | UsuarioInvalidoException | RecetaInvalidaException e) {
 			// TODO Auto-generated catch block
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,e.getMessage(), ""));
-			e.printStackTrace();
-	    	return "unirseGrupo";
-			
+	    	e.printStackTrace();
+	        return "compartirReceta";
 		}
+		
 
 		//Update DB
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.clear();
 		Transaction tx = session.beginTransaction();
-		session.update(usuarioController.getUsuario());
-		session.update(grupoSeleccionado);
+		session.update(grupoSeleccionado);			
+		session.update(recetaSeleccionada);			
 		tx.commit();
 		session.close();
-		
+	
+	
     	//Message will be show in next page. The next view will show message in first p:message with property "for=null" 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Flash flash = facesContext.getExternalContext().getFlash();
     	flash.setKeepMessages(true);
     	flash.setRedirect(true);
-    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Se ha unido correctamente al grupo!", ""));
+    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Receta compartida con exito!", ""));
         return "index?faces-redirect=true";
     }
 
-	
-	public String salir() throws GrupoInvalidoException{
-
-		if (grupoSeleccionado == null) {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Debe seleccionar un grupo!", ""));
-	    	return "salirGrupo";
-		}
-		
-		try {
-			grupoSeleccionado.removerMiembro(usuarioController.getUsuario());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,e.getMessage(), ""));
-	    	e.printStackTrace();
-	    	return "salirGrupo";
-		}
-
-		//Update BD
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction tx = session.beginTransaction();
-		session.update(usuarioController.getUsuario());
-		session.update(grupoSeleccionado);
-		tx.commit();
-		session.close();
-		
-		//Message will be show in next page. The next view will show message in first p:message with property "for=null" 
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		Flash flash = facesContext.getExternalContext().getFlash();
-    	flash.setKeepMessages(true);
-    	flash.setRedirect(true);
-    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Ha salido correctamente del grupo!", ""));
-        return "index?faces-redirect=true";
-	}
 
    
 
@@ -161,6 +125,22 @@ public class GrupoController {
 
 
 	
+
+
+
+	public Receta getRecetaSeleccionada() {
+		return recetaSeleccionada;
+	}
+
+
+
+
+	public void setRecetaSeleccionada(Receta recetaSeleccionada) {
+		this.recetaSeleccionada = recetaSeleccionada;
+	}
+
+
+
 
 	public Grupo getGrupoSeleccionado() {
 		return grupoSeleccionado;
@@ -186,8 +166,11 @@ public class GrupoController {
 	public void setGruposDisponibles(Set<Grupo> gruposDisponibles) {
 		this.gruposDisponibles = gruposDisponibles;
 	}
-
-    private Set<Grupo> obtenerGruposDisponiblesBD() {
+	   
+    
+	  
+  
+	private Set<Grupo> getGruposDisponiblesBD() {
 		// TODO Auto-generated method stub
     	Set<Grupo> gruposDisponibles = new HashSet<Grupo>();
 		// TODO Auto-generated method stub
@@ -200,5 +183,7 @@ public class GrupoController {
 		return gruposDisponibles;
 	}
 
+
+	
 
 }

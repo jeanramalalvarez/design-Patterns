@@ -13,7 +13,7 @@ public class Comida {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@OneToOne(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER) 		
+	@OneToOne(fetch=FetchType.EAGER) 		
 	private Receta receta;
 	
 	

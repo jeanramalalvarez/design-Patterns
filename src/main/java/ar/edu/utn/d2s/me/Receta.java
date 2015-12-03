@@ -20,7 +20,7 @@ public class Receta {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToOne(  fetch=FetchType.EAGER)
 	@JoinColumn(name="ID_Usuario") 
 	private Usuario usuario;
 	
@@ -48,13 +48,13 @@ public class Receta {
     private int calorias;
     
     
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(  fetch=FetchType.EAGER)
     @JoinColumn(name="ID_Receta") 
     private Set<Calificacion> calificaciones;
     
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToMany(  fetch=FetchType.EAGER)
 	@JoinTable(
-			name = "GrupoReceta",		
+			name = "RecetaGrupo",		
 			joinColumns = {@JoinColumn(name = "ID_Receta")},
 			inverseJoinColumns = {@JoinColumn(name =  "ID_Grupo")}
 			)

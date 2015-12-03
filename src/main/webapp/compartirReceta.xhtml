@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"  
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<h:head>
+	<title>Compartir Receta</title>
+</h:head>
+
+<h:body>
+
+	<p:layout>
+
+	    <p:layoutUnit position="west" resizable="true" style="border:0px;min-width:300px;">
+
+	        <ui:include src="index.xhtml" />
+
+	    </p:layoutUnit>
+	 
+	    <p:layoutUnit position="center" style="border:0px">
+
+			<h:form id="compartirForm">
+			
+			<p:panel id="panel" header="Compartir" style="margin-bottom:10px">
+					<h:outputText value="Recetas propias"/>                        
+                    <p:dataTable id="recetasPropias" value="#{compartirRecetaController.usuarioController.usuario.recetasPropias}" 
+                    	var="recetaPropia" selection="#{compartirRecetaController.recetaSeleccionada}" 
+                    	rowKey="#{recetaPropia.id}">
+                        
+                        <p:column selectionMode="single" style="width:16px;text-align: center"/>
+                        
+                        <p:column headerText="ID">
+                            <h:outputText value="#{recetaPropia.id}"/>
+                        </p:column>                     
+                             
+                        <p:column headerText="Titulo de Receta">
+                            <h:outputText value="#{recetaPropia.nombre}"/>
+                        </p:column>                                    
+                     
+                    </p:dataTable>
+                    <br/>
+                    
+					<h:outputText value="Grupos disponibles"/>                                            
+                    <p:dataTable id="gruposDisponibles" value="#{compartirRecetaController.gruposDisponibles}"
+                    	var="grupoDisponible" selection="#{compartirRecetaController.grupoSeleccionado}" 
+                    	rowKey="#{grupoDisponible.id}">
+
+                        <p:column selectionMode="single" style="width:16px;text-align: center"/>
+                        
+                        <p:column headerText="ID">
+                            <h:outputText value="#{grupoDisponible.id}"/>
+                        </p:column>
+                        <p:column headerText="Nombre de Grupo">
+                            <h:outputText value="#{grupoDisponible.nombre}"/>
+                        </p:column>
+                      
+                    </p:dataTable>
+
+					<br/>
+                    <h:panelGrid columns="3">
+                        <p:commandButton action="#{compartirRecetaController.compartir()}" ajax="false" value="Compartir"/>
+                        <p:commandButton action="index.xhtml" ajax="false" value="Cancelar"/>
+                    </h:panelGrid>
+			    </p:panel>
+                </h:form>
+            
+			
+	       
+	    </p:layoutUnit>
+	
+	</p:layout>
+	
+</h:body>
+</html>
