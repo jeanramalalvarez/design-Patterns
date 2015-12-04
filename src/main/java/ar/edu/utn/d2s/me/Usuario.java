@@ -290,6 +290,13 @@ public class Usuario {
 	}
 	
 	public void calificar(Receta receta, Calificacion calificacion) throws UsuarioInvalidoException, RecetaInvalidaException{
+		if (receta == null || calificacion == null || calificacion.getGrupo() == null || calificacion.getUsuario() == null || calificacion.getValor() < 0 ) {
+			throw new RecetaInvalidaException("Error: la receta y el grupo no pueden ser nulos y la calificacion tiene que ser un numero positivo");
+		}
+		
+		if (!calificacion.getGrupo().esRecetaCompartida(receta)) {
+			throw new RecetaInvalidaException("Error: la receta no fue compartida en el grupo");
+		}
 		if (!esUnoDeMisGrupos(calificacion.getGrupo())) {
 			throw new UsuarioInvalidoException("Error: el usuario no puede calificar una receta de un grupo al que no pertenece");
 		}

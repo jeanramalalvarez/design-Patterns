@@ -189,6 +189,8 @@ public class Grupo {
 		this.miembros = miembros;
 	}
 	
-	
+	public boolean esRecetaCompartida(Receta receta){
+		return recetasCompartidas.contains(receta)?true :false;
+	}
 
 }

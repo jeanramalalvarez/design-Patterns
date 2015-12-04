@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.ut.d2s.exceptions.GrupoInvalidoException;
+import ar.edu.ut.d2s.exceptions.RecetaInvalidaException;
 import ar.edu.ut.d2s.exceptions.UsuarioExistenteException;
 import ar.edu.ut.d2s.exceptions.UsuarioInvalidoException;
 import static org.junit.Assert.*;
@@ -70,12 +71,12 @@ public class GrupoTest {
 	
 	// El usuario puede compartir recetas al grupo si es miembro
 	@Test
-	public void testCompartirRecetaUsuarioMiembro() throws GrupoInvalidoException, UsuarioInvalidoException{
+	public void testCompartirRecetaUsuarioMiembro() throws GrupoInvalidoException, UsuarioInvalidoException, RecetaInvalidaException{
 		usuarioValido.compartirReceta(grupoValido, recetaValida);
 	}
 	
 	@Test (expected = GrupoInvalidoException.class)
-	public void testCompartirRecetaUsuarioNoMiembro() throws GrupoInvalidoException, UsuarioInvalidoException{
+	public void testCompartirRecetaUsuarioNoMiembro() throws GrupoInvalidoException, UsuarioInvalidoException, RecetaInvalidaException{
 		grupoValido.removerMiembro(usuarioValido);
 		usuarioValido.compartirReceta(grupoValido, recetaValida);
 	}
