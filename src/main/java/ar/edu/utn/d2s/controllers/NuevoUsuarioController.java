@@ -133,7 +133,7 @@ public class NuevoUsuarioController {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"", e.getMessage()));
 	    	e.printStackTrace();
-	    	return "nuevoUsuario";
+	    	return null;
 		}
     	
     	

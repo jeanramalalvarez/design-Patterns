@@ -97,37 +97,16 @@ public class CalificarRecetaController {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
 	    	e.printStackTrace();
-	    	return "calificarReceta";
+	    	return null;
 		}
-		
-//		if (fecha == null) {
-//			FacesContext facesContext = FacesContext.getCurrentInstance();
-//	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione una fecha", ""));
-//	    	return "planificarReceta";
-//	    }
-//		
-//		comida.setFecha(new LocalDate(fecha));
-//
-//		//Schedule and validate food
-//		Planificador planificadorComidas = new Planificador();
-//		try {
-//			planificadorComidas.planificar(comida, usuarioController.getUsuario());
-//		} catch(FechaFueraFueraDeRangoException | ComidaInvalidaInvaliException e) {
-//			// TODO Auto-generated catch block
-//			FacesContext facesContext = FacesContext.getCurrentInstance();
-//	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
-//	    	e.printStackTrace();
-//	    	return "planificarReceta";
-//		} 
-//		
-//
-//    	//Persist comida with DAO
-//    	Session session = HibernateUtil.getSessionFactory().openSession();
-//    	Transaction tx = session.beginTransaction();
-//    	session.update(usuarioController.getUsuario());
-//    	session.save(comida);
-//		tx.commit();
-//		session.close();
+
+    	//Persist 
+    	Session session = HibernateUtil.getSessionFactory().openSession();
+    	Transaction tx = session.beginTransaction();
+    	session.save(calificacion);
+    	session.update(recetaSeleccionada);
+		tx.commit();
+		session.close();
       	
     	//Message will be show in next page. The next view will show message in first p:message with property "for=null" 
 		FacesContext facesContext = FacesContext.getCurrentInstance();

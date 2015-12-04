@@ -192,5 +192,15 @@ public class Grupo {
 	public boolean esRecetaCompartida(Receta receta){
 		return recetasCompartidas.contains(receta)?true :false;
 	}
+	
+	public Set<Receta> getRecetasCompartidas(Usuario usuario){
+		Set<Receta> recetasCompartidasPorAutor = new HashSet<Receta>();
+		for (Receta recetaCompartida : recetasCompartidas) {
+			if (recetaCompartida.getAutor().equals(usuario)) {
+				recetasCompartidasPorAutor.add(recetaCompartida);
+			}
+		}
+		return recetasCompartidasPorAutor;
+	}
 
 }

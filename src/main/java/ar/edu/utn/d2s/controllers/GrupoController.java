@@ -75,7 +75,7 @@ public class GrupoController {
 		if (grupoSeleccionado == null) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Debe seleccionar un grupo!", ""));
-	    	return "unirseGrupo";
+	    	return null;
 		}
 		
 		try {
@@ -85,7 +85,7 @@ public class GrupoController {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,e.getMessage(), ""));
 			e.printStackTrace();
-	    	return "unirseGrupo";
+	    	return null;
 			
 		}
 

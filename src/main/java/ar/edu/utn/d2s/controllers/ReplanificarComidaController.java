@@ -97,7 +97,7 @@ public class ReplanificarComidaController {
 		if (comidaSeleccionada == null) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Debe seleccionar una comida!", ""));
-	        return "replanificarComida";
+	        return null;
 		}
 
 		Planificador planificadorComidas = new Planificador();
@@ -109,7 +109,7 @@ public class ReplanificarComidaController {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,e.getMessage(), ""));
 	    	e.printStackTrace();
-	        return "replanificarComida";	
+	        return null;	
 		}
 		
 

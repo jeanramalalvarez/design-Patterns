@@ -82,7 +82,7 @@ public class PlanificarRecetaController {
 		if (fecha == null) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione una fecha", ""));
-	    	return "planificarReceta";
+	    	return null;
 	    }
 		
 		comida.setFecha(new LocalDate(fecha));
@@ -96,7 +96,7 @@ public class PlanificarRecetaController {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
 	    	e.printStackTrace();
-	    	return "planificarReceta";
+	    	return null;
 		} 
 		
 

@@ -10,6 +10,7 @@ import org.junit.Test;
 import ar.edu.ut.d2s.exceptions.ComidaInvalidaInvaliException;
 import ar.edu.ut.d2s.exceptions.FechaFueraFueraDeRangoException;
 import ar.edu.ut.d2s.exceptions.GrupoInvalidoException;
+import ar.edu.ut.d2s.exceptions.ParametrosInvalidosException;
 import ar.edu.ut.d2s.exceptions.RecetaInvalidaException;
 import ar.edu.ut.d2s.exceptions.UsuarioExistenteException;
 import ar.edu.ut.d2s.exceptions.UsuarioInvalidoException;
@@ -239,7 +240,7 @@ public class RecetaTest {
 
 	// La calificación de la receta es visible solo para los miembros del grupo (listarCalificacionesReceta)
 	@Test(expected = UsuarioInvalidoException.class)
-	public void testListarCalificacionesUsuarioNoMiembro() throws UsuarioInvalidoException{
+	public void testListarCalificacionesUsuarioNoMiembro() throws UsuarioInvalidoException, RecetaInvalidaException, ParametrosInvalidosException{
 		Usuario usuarioMiembro = new Usuario();
 		usuarioMiembro.setMail("mailMiembro@gmail.com");
 		usuarioMiembro.setNombre("usuarioMiembro");
@@ -248,7 +249,7 @@ public class RecetaTest {
 		usuarioMiembro.listarCalificaciones(grupoValido, recetaValida);
 	}
 	
-	public void testListarCalificacionesUsuarioMiembro() throws UsuarioInvalidoException{
+	public void testListarCalificacionesUsuarioMiembro() throws UsuarioInvalidoException, RecetaInvalidaException, ParametrosInvalidosException{
 		assertEquals(1, usuarioValido.listarCalificaciones(grupoValido, recetaValida).size());
 	}
 	

@@ -11,6 +11,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.Years;
 
 import ar.edu.ut.d2s.exceptions.GrupoInvalidoException;
+import ar.edu.ut.d2s.exceptions.ParametrosInvalidosException;
 import ar.edu.ut.d2s.exceptions.RecetaInvalidaException;
 import ar.edu.ut.d2s.exceptions.UsuarioInvalidoException;
 
@@ -312,9 +313,17 @@ public class Usuario {
 		return grupos.contains(grupo);
 	}
 	
-	public Set<Calificacion> listarCalificaciones(Grupo grupo, Receta receta) throws UsuarioInvalidoException{
+	public Set<Calificacion> listarCalificaciones(Grupo grupo, Receta receta) throws UsuarioInvalidoException, RecetaInvalidaException, ParametrosInvalidosException{
+		if (grupo == null || receta == null) {
+			throw new ParametrosInvalidosException("Error: la receta y el grupo no pueden ser nulos");
+		}
+		
 		if (!esUnoDeMisGrupos(grupo)) {
 			throw new UsuarioInvalidoException("Error: el usuario no es miembro del grupo, no se pueden listar las calificaciones de la receta");
+		}
+		
+		if(!grupo.esRecetaCompartida(receta)){
+			throw new RecetaInvalidaException("Error: no se puede calificar una receta que no fue compartida en el grupo");			
 		}
 		return receta.getCalificaciones();
 	}
@@ -400,4 +409,6 @@ public class Usuario {
 	public void setId(int id) {
 		this.id = id;
 	}
-}
+	
+
+ }

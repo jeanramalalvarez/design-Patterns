@@ -99,7 +99,7 @@ public class NuevaRecetaController {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
 	    	e.printStackTrace();
-	    	return "nuevaReceta";
+	    	return null;
 		}
 
     	//Persist user with DAO

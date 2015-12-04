@@ -62,7 +62,7 @@ public class LoginController {
 		if (usuario == null) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Usuario o password incorrectos",""));
-			return "login";
+			return null;
 		}
     	//Message will be show in next page. The next view will show message in first p:message with property "for=null" 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
