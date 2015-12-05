@@ -70,8 +70,8 @@ public class GrupoTest {
 	}
 	
 	// El usuario puede compartir recetas al grupo si es miembro
-	@Test
-	public void testCompartirRecetaUsuarioMiembro() throws GrupoInvalidoException, UsuarioInvalidoException, RecetaInvalidaException{
+	@Test(expected = RecetaInvalidaException.class)
+	public void testCompartirRecetaUsuarioMiembroQueYaHabiaCompartido() throws GrupoInvalidoException, UsuarioInvalidoException, RecetaInvalidaException{
 		usuarioValido.compartirReceta(grupoValido, recetaValida);
 	}
 	

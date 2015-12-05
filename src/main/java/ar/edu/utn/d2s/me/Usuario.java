@@ -347,8 +347,11 @@ public class Usuario {
 	}
 	
 
-	public List<Receta> getRankingRecetas(Grupo grupoValido) {
+	public List<Receta> getRankingRecetas(Grupo grupoValido) throws UsuarioInvalidoException {
 		// TODO Auto-generated method stub
+		if (!esUnoDeMisGrupos(grupoValido)) {
+			throw new UsuarioInvalidoException("Error: el usuario no es miembro del grupo, no se pueden rankear las recetas");
+		}
 		return grupoValido.getRankingRecetas();
 	}
 	

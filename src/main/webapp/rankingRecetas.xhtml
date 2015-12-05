@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"  
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<h:head>
+	<title>Ranking de Recetas</title>
+</h:head>
+
+<h:body>
+
+	<p:layout>
+
+	    <p:layoutUnit position="west" resizable="true" style="border:0px;min-width:300px;">
+
+	        <ui:include src="index.xhtml" />
+
+	    </p:layoutUnit>
+	 
+	    <p:layoutUnit position="center" style="border:0px">
+
+			<h:form id="rankingForm">
+			<p:panel id="panel" header="Ranking de Recetas por Grupo" style="margin-bottom:10px">
+					<h:outputText value="Mis Grupos"/>                        
+                    <p:dataTable id="grupos" value="#{rankingRecetasController.gruposDisponibles}" 
+                    	var="grupo" selection="#{rankingRecetasController.grupoSeleccionado}" 
+                    	rowKey="#{grupo.id}">
+                        
+                        <p:column selectionMode="single" style="width:16px;text-align: center"/>
+                        
+                         <p:column headerText="ID">
+                            <h:outputText value="#{grupo.id}"/>
+                        </p:column>                     
+                        <p:column headerText="Nombre Grupo">
+                            <h:outputText value="#{grupo.nombre}"/>
+                        </p:column>
+                        
+                     
+                    </p:dataTable>
+                    <br/>
+			
+					<p:commandButton action="#{rankingRecetasController.obtenerRanking()}" value="Obtener Ranking" update="rankingDT"/>
+                    <p:commandButton action="index.xhtml" ajax="false" value="Cancelar"/>			
+                    					
+                    <br/><br/>
+					<h:outputText value="Ranking de Recetas"/>                                            					
+					<p:dataTable id="rankingDT" var="receta" value="#{rankingRecetasController.recetasRankeadas}">
+					 	<p:column headerText="ID" >
+							<h:outputText value="#{receta.id}" />
+				       	</p:column>
+				       	
+				       	<p:column headerText="Nombre Receta" >
+							<h:outputText value="#{receta.nombre}" />
+				       	</p:column>
+				       	
+				       	<p:column headerText="Calificacion Promedio" >
+							<h:outputText value="#{receta.getCalificacionPromedio(rankingRecetasController.grupoSeleccionado)}" />
+				       	</p:column>
+					</p:dataTable>
+                    
+			    </p:panel>
+                </h:form>
+            
+			
+	       
+	    </p:layoutUnit>
+	
+	</p:layout>
+	
+</h:body>
+</html>
