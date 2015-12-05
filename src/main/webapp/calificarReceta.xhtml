@@ -11,7 +11,7 @@
 
 
 <h:head>
-	<title>Calificar Receta</title>
+	<title>Calificar/Modificar Receta</title>
 </h:head>
 
 <h:body>
@@ -27,7 +27,7 @@
 	    <p:layoutUnit position="center" style="border:0px">
 
 			<h:form id="calificarForm">
-			<p:panel id="panel" header="Calificar Receta en Grupo" style="margin-bottom:10px">
+			<p:panel id="panel" header="Calificar/Modificar Receta en Grupo" style="margin-bottom:10px">
 					<h:outputText value="Recetas Compartidas en Grupos"/>                        
                     <p:dataTable id="recetasCompartidas" value="#{calificarRecetaController.recetasCompartidasGrupos}" 
                     	var="recetaCompartida" selection="#{calificarRecetaController.recetaSeleccionada}" 
@@ -47,7 +47,7 @@
                         <p:column headerText="Calorias">
                             <h:outputText value="#{recetaCompartida.calorias}"/>
                         </p:column>
-                        <p:column headerText="Dificultad">
+                        <p:column headerText="Dificultad">	
                             <h:outputText value="#{recetaCompartida.dificultad}"/>
                         </p:column>
                              
@@ -78,6 +78,7 @@
 					<br/><br/>                    
                     <h:panelGrid columns="3">
                         <p:commandButton action="#{calificarRecetaController.calificar()}" ajax="false" value="Calificar"/>
+                        <p:commandButton action="#{calificarRecetaController.modificar()}" ajax="false" value="Modificar"/>
                         <p:commandButton action="index.xhtml" ajax="false" value="Cancelar"/>
                     </h:panelGrid>
 			    </p:panel>

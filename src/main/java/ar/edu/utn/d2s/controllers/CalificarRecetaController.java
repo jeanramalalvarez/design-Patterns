@@ -37,6 +37,7 @@ import org.primefaces.model.menu.MenuModel;
 
 import ar.edu.ut.d2s.exceptions.ComidaInvalidaInvaliException;
 import ar.edu.ut.d2s.exceptions.FechaFueraFueraDeRangoException;
+import ar.edu.ut.d2s.exceptions.ParametrosInvalidosException;
 import ar.edu.ut.d2s.exceptions.RecetaInvalidaException;
 import ar.edu.ut.d2s.exceptions.UsuarioInvalidoException;
 import ar.edu.utn.d2s.hibernate.HibernateUtil;
@@ -117,7 +118,35 @@ public class CalificarRecetaController {
         return "index?faces-redirect=true";
     }
 
+	public String modificar() throws RecetaInvalidaException{
+		
+		//Operation
+		try {
+			usuarioController.getUsuario().modificarCalificacion(recetaSeleccionada, grupoSeleccionado, valorCalificacion);
+		} catch (UsuarioInvalidoException | ParametrosInvalidosException | RecetaInvalidaException e) {
+			// TODO Auto-generated catch block
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+	    	e.printStackTrace();
+	    	return null;	
+		}
 
+		//Persist 
+		Calificacion calificacion = recetaSeleccionada.getCalificacionObjecto(usuarioController.getUsuario(), grupoSeleccionado);
+    	Session session = HibernateUtil.getSessionFactory().openSession();
+    	Transaction tx = session.beginTransaction();
+    	session.update(calificacion);
+		tx.commit();
+		session.close();		
+
+		//Message will be show in next page. The next view will show message in first p:message with property "for=null" 
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Flash flash = facesContext.getExternalContext().getFlash();
+    	flash.setKeepMessages(true);
+    	flash.setRedirect(true);
+    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Receta modificada con exito!", ""));
+        return "index?faces-redirect=true";
+	}
    
      
     public void addMessage(String summary, String detail) {

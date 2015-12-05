@@ -236,6 +236,16 @@ public class Receta {
 		}
 		throw new RecetaInvalidaException("Error: la receta no tiene aun calificaciones");
 	}
+	
+	public Calificacion getCalificacionObjecto(Usuario usuario, Grupo grupo) throws RecetaInvalidaException{
+		for (Calificacion calificacion : calificaciones) {
+			if (calificacion.getGrupo().equals(grupo) && calificacion.getUsuario().equals(usuario)) {
+				return calificacion;
+			}
+		}
+		throw new RecetaInvalidaException("Error: la receta no tiene aun calificaciones");
+	}
+
 
 	public boolean fuisteCalificada(Usuario usuario, Grupo grupo) {
 		// TODO Auto-generated method stub

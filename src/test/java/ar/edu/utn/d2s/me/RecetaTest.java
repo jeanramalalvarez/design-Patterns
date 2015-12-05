@@ -71,6 +71,7 @@ public class RecetaTest {
 		calificacionValida.setValor(1);
 		usuarioValido.calificar(recetaValida, calificacionValida);
 		
+		usuarioValido.compartirReceta(grupoValido2, recetaValida);		
 		calificacionValida2.setGrupo(grupoValido2);
 		calificacionValida2.setUsuario(usuarioValido);
 		calificacionValida2.setValor(4);
@@ -256,7 +257,7 @@ public class RecetaTest {
 	//Se puede modificar la calificación de la receta en cualquier momento pero no se debe poder calificar
 	//más de una vez la misma receta
 	@Test
-	public void testModificarCalificacionReceta() throws UsuarioInvalidoException, RecetaInvalidaException{
+	public void testModificarCalificacionReceta() throws UsuarioInvalidoException, RecetaInvalidaException, ParametrosInvalidosException{
 		usuarioValido.modificarCalificacion(recetaValida, grupoValido, 2);
 		assertEquals(2, recetaValida.getCalificacion(usuarioValido, grupoValido));
 	}

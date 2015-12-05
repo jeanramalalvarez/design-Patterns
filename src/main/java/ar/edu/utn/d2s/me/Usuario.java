@@ -307,6 +307,24 @@ public class Usuario {
 		
 		receta.agregarCalificacion(calificacion);
 	}
+	
+	
+	public void modificarCalificacion(Receta receta, Grupo grupo, int valor) throws UsuarioInvalidoException, ParametrosInvalidosException, RecetaInvalidaException{
+		if (receta == null || grupo == null || valor < 0 ) {
+			throw new ParametrosInvalidosException("Error: la receta y el grupo no pueden ser nulos y la calificacion tiene que ser un numero positivo");
+		}
+		
+		if (!esUnoDeMisGrupos(grupo)) {
+			throw new UsuarioInvalidoException("Error: el usuario no es miembro del grupo");
+		}
+		
+		if (!receta.fuisteCalificada(this, grupo)) {
+			throw new RecetaInvalidaException("Error: la receta no fue calificada por este usuario");
+		}
+		
+		receta.modificarCalificacion(this, grupo, valor);
+	}
+
 
 	public boolean esUnoDeMisGrupos(Grupo grupo) {
 		// TODO Auto-generated method stub
@@ -328,13 +346,6 @@ public class Usuario {
 		return receta.getCalificaciones();
 	}
 	
-	
-	public void modificarCalificacion(Receta receta, Grupo grupo, int valor) throws UsuarioInvalidoException{
-		if (!esUnoDeMisGrupos(grupo)) {
-			throw new UsuarioInvalidoException("Error: el usuario no es miembro del grupo, no se pueden listar las calificaciones de la receta");
-		}
-		receta.modificarCalificacion(this, grupo, valor);
-	}
 
 	public List<Receta> getRankingRecetas(Grupo grupoValido) {
 		// TODO Auto-generated method stub
