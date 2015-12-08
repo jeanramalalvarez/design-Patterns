@@ -5,7 +5,7 @@
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
 
-	<display-name>JavaServerFaces</display-name>
+	<display-name>Factory Method</display-name>
 
 	<!-- Change to "Production" when you are ready to deploy -->
 	<context-param>
@@ -15,7 +15,7 @@
 
 	<!-- Welcome page -->
 	<welcome-file-list>
-		<welcome-file>faces/login.xhtml</welcome-file>
+		<welcome-file>faces/index.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<!-- JSF mapping -->
@@ -43,8 +43,5 @@
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
-<context-param>  
-    <param-name>primefaces.cupertino</param-name>  
-    <param-value>bootstrap</param-value>  
-</context-param> 
+
 </web-app>
