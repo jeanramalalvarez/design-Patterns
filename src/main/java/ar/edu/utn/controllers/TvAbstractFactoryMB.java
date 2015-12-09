@@ -8,6 +8,8 @@ import javax.faces.context.FacesContext;
 
 import ar.edu.utn.model.abstractFactory.Color;
 import ar.edu.utn.model.abstractFactory.FabricaLcdAzul;
+import ar.edu.utn.model.abstractFactory.FabricaLcdNegro;
+import ar.edu.utn.model.abstractFactory.FabricaLedRojo;
 import ar.edu.utn.model.abstractFactory.FabricaPlasmaNegro;
 import ar.edu.utn.model.abstractFactory.FabricaTv;
 import ar.edu.utn.model.abstractFactory.Tv;
@@ -19,48 +21,52 @@ public class TvAbstractFactoryMB {
 	private Tv tv;
 	private Color color;
 	private FabricaTv fabricaTv;
-	
+	private String fabricaTvSelected;
 
     @PostConstruct
     public void init() {
     }
 	
-    public void makeLcdAzul(){
-    	fabricaTv = new FabricaLcdAzul();
+    public void make(){
+    	try {
+			fabricaTv =  this.obtenerFabricaSeleccionada();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,e1.getMessage(), ""));
+	    	return;
+		}
+
     	tv = fabricaTv.createTv();
     	color = fabricaTv.createColor();
-    	
-    	try {
-    		color.colorear(tv);			
-		} catch (Exception e) {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,e.getMessage(), ""));
-	    	return;
-		
-		}
+   		color.colorear(tv);			
     	//Message will be show in next page. The next view will show message in first p:message with property "for=null" 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
     	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Success", ""));    	
     }
     
-    public void makePlasmaNegro(){
-    	fabricaTv = new FabricaPlasmaNegro();
-    	tv = fabricaTv.createTv();
-    	color = fabricaTv.createColor();
-    	try {
-    		color.colorear(tv);			
-		} catch (Exception e) {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-	    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,e.getMessage(), ""));
-	    	return;
-		
-		}
-    	//Message will be show in next page. The next view will show message in first p:message with property "for=null" 
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-    	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Success", ""));
-    }
+
+    
+    
     
 	
+	private FabricaTv obtenerFabricaSeleccionada() throws Exception {
+		// TODO Auto-generated method stub
+		switch (fabricaTvSelected) {
+		case "LCD_AZUL":
+			return new FabricaLcdAzul();
+		case "PLASMA_NEGRO":
+			return new FabricaPlasmaNegro();
+			
+		case "LCD_NEGRO":
+			return new FabricaLcdNegro();
+		case "LED_ROJO":
+			return new FabricaLedRojo();
+		default:
+			throw new  Exception("Error: factory not exist");
+		}
+	}
+
 	/**
 	 * @return the tv
 	 */
@@ -84,6 +90,21 @@ public class TvAbstractFactoryMB {
 	 */
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+
+	/**
+	 * @return the fabricaTvSelected
+	 */
+	public String getFabricaTvSelected() {
+		return fabricaTvSelected;
+	}
+
+	/**
+	 * @param fabricaTvSelected the fabricaTvSelected to set
+	 */
+	public void setFabricaTvSelected(String fabricaTvSelected) {
+		this.fabricaTvSelected = fabricaTvSelected;
 	}
 	
 }

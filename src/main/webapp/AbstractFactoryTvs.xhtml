@@ -22,12 +22,17 @@
 		<p:panel id="panel" header="Tvs Abstarct Factory" style="margin-bottom:10px">
 
 			<h:panelGrid columns="2" cellpadding="5">
-			<h:outputText value="LCD AZUL"/>
-			<p:commandButton action="#{tvAbstractFactoryMB.makeLcdAzul()}" value="Make" update="@form"/>
-	
-	<h:outputText value="PLASMA NEGRO"/>
-			<p:commandButton action="#{tvAbstractFactoryMB.makePlasmaNegro()}" value="Make" update="@form"/>
-	
+			
+			<h:selectOneMenu
+				value="#{tvAbstractFactoryMB.fabricaTvSelected}">
+				<f:selectItem itemValue="Tv"/>
+				<f:selectItem itemLabel="LCD AZUL" itemValue="LCD_AZUL" />
+				<f:selectItem itemLabel="PLASMA NEGRO" itemValue="PLASMA_NEGRO" />
+				<f:selectItem itemLabel="LCD NEGRO" itemValue="LCD_NEGRO" />
+								<f:selectItem itemLabel="LED ROJO" itemValue="LED_ROJO" />
+			</h:selectOneMenu>                     
+  			<p:commandButton action="#{tvAbstractFactoryMB.make()}" value="Make" update="@form"/>	
+			
 			<h:outputText value="Tipo:"/>
 			<h:outputText value="#{tvAbstractFactoryMB.tv.tipo}"/>		
 			<h:outputText value="Pulgadas:"/>

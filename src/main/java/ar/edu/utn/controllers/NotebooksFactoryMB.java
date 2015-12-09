@@ -32,8 +32,6 @@ public class NotebooksFactoryMB {
      
     }
  
-   
-
 	public String makeLenovo() {
 		this.notebookFactory = new LenovoFactoryNotebook();
 		try {
