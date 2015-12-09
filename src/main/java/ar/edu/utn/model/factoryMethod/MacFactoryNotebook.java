@@ -1,4 +1,4 @@
-package ar.edu.utn.model;
+package ar.edu.utn.model.factoryMethod;
 
 import ar.edu.utn.exceptions.NotebookModelInvalidException;
 

@@ -1,4 +1,4 @@
-package ar.edu.utn.model;
+package ar.edu.utn.model.factoryMethod;
 
 public class LenovoG575Notebook extends Notebook {
 	public LenovoG575Notebook() {

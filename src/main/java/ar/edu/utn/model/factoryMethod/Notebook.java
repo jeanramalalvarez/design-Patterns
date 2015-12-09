@@ -1,4 +1,4 @@
-package ar.edu.utn.model;
+package ar.edu.utn.model.factoryMethod;
 
 public abstract class Notebook {
 	private String name;

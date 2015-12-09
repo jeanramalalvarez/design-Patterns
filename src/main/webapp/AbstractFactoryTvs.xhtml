@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">  
+
+
+
+<h:head>
+	<title>TVs Abstract Factory </title>
+</h:head>
+
+<h:body>
+	
+	<h:form>
+
+	 	<p:growl autoUpdate="true"/>
+	   
+	    
+		<p:panel id="panel" header="Tvs Abstarct Factory" style="margin-bottom:10px">
+
+			<h:panelGrid columns="2" cellpadding="5">
+			<h:outputText value="LCD AZUL"/>
+			<p:commandButton action="#{tvAbstractFactoryMB.makeLcdAzul()}" value="Make" update="@form"/>
+	
+	<h:outputText value="PLASMA NEGRO"/>
+			<p:commandButton action="#{tvAbstractFactoryMB.makePlasmaNegro()}" value="Make" update="@form"/>
+	
+			<h:outputText value="Tipo:"/>
+			<h:outputText value="#{tvAbstractFactoryMB.tv.tipo}"/>		
+			<h:outputText value="Pulgadas:"/>
+			<h:outputText value="#{tvAbstractFactoryMB.tv.pulgadas}"/>	
+			<h:outputText value="Color:"/>
+			<h:outputText value="#{tvAbstractFactoryMB.tv.color}"/>	
+            </h:panelGrid>
+	    </p:panel>
+	</h:form>
+
+</h:body>
+</html>

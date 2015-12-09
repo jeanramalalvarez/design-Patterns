@@ -11,6 +11,10 @@ import javax.faces.context.Flash;
 
 import ar.edu.utn.exceptions.NotebookModelInvalidException;
 import ar.edu.utn.model.*;
+import ar.edu.utn.model.factoryMethod.FactoryNotebook;
+import ar.edu.utn.model.factoryMethod.LenovoFactoryNotebook;
+import ar.edu.utn.model.factoryMethod.MacFactoryNotebook;
+import ar.edu.utn.model.factoryMethod.Notebook;
 
 
  

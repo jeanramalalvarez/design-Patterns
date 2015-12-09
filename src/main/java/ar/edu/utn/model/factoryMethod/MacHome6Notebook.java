@@ -1,4 +1,4 @@
-package ar.edu.utn.model;
+package ar.edu.utn.model.factoryMethod;
 
 public class MacHome6Notebook extends Notebook {
 	public MacHome6Notebook() {

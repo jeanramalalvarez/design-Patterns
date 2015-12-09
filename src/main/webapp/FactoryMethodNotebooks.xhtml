@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">  
+
+
+
+<h:head>
+	<title>FactoryMethod</title>
+</h:head>
+
+<h:body>
+	
+	<h:form>
+
+	 	<p:growl autoUpdate="true"/>
+	   
+	    
+		<p:panel id="panel" header="Notebooks´ Factory" style="margin-bottom:10px">
+
+			<h:panelGrid columns="2" cellpadding="5">
+			<h:selectOneMenu
+				value="#{notebooksFactoryMB.lenovoModelNotebook}">
+				<f:selectItem itemValue="Lenovo"/>
+				<f:selectItem itemLabel="G475" itemValue="G475" />
+				<f:selectItem itemLabel="G575" itemValue="G575" />
+			</h:selectOneMenu>                     
+  				<p:commandButton action="#{notebooksFactoryMB.makeLenovo()}" value="Make" update="@form"/>
+
+			<h:selectOneMenu
+				value="#{notebooksFactoryMB.macModelNotebook}">
+				<f:selectItem itemValue="Mac"/>
+				<f:selectItem itemLabel="PRO7" itemValue="PRO7" />
+				<f:selectItem itemLabel="HOME7" itemValue="HOME7" />
+			</h:selectOneMenu>                     
+  				<p:commandButton action="#{notebooksFactoryMB.makeMac()}" value="Make" update="@form"/>
+			<h:outputText value="Name:"/>
+			<h:outputText value="#{notebooksFactoryMB.notebook.name}"/>		
+			<h:outputText value="O.S.:"/>
+			<h:outputText value="#{notebooksFactoryMB.notebook.operatingSystem}"/>	
+			<h:outputText value="Processor:"/>
+			<h:outputText value="#{notebooksFactoryMB.notebook.processor}"/>	
+            </h:panelGrid>
+	    </p:panel>
+	</h:form>
+
+</h:body>
+</html>
