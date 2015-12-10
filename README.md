@@ -8,3 +8,4 @@ Design pattern Examples with:
 
 For now:
 1- Factory Method
+2- Abstract Factory

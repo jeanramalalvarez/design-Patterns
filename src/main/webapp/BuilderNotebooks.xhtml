@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">  
+
+
+
+<h:head>
+	<title>Builder Notebooks </title>
+</h:head>
+
+<h:body>
+	
+	<h:form>
+
+	 	<p:growl autoUpdate="true"/>
+	   
+	    
+		<p:panel id="panel" header="Builder Notebooks" style="margin-bottom:10px">
+
+			<h:panelGrid columns="2" cellpadding="5">
+			
+			<h:selectOneMenu
+				value="#{notebookBuilderMB.builderSelected}">
+				<f:selectItem itemValue="Notebook"/>
+				<f:selectItem itemLabel="Lenovo G475" itemValue="Lenovo_G475" />
+				<f:selectItem itemLabel="Mac UltrabookPro7" itemValue="Mac_UltrabookPro7" />
+
+			</h:selectOneMenu>                     
+  			<p:commandButton action="#{notebookBuilderMB.make()}" value="Make" update="@form"/>	
+			
+			<h:panelGrid columns="1" cellpadding="2">
+			<h:outputText value="Marca:" style="font-weight:bold"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.marca}"/>		
+			<h:outputText value="Modelo:" style="font-weight:bold"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.modelo}"/>	
+			<h:outputText value="Pantalla:" style="font-weight:bold"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.pantalla.marca}"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.pantalla.modelo}"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.pantalla.pulgadas}"/>
+			<h:outputText value="Disco:" style="font-weight:bold"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.disco.marca}"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.disco.modelo}"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.disco.capacidad}"/>
+			<h:outputText value="Placa Madre:" style="font-weight:bold"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.placaMadre.marca}"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.placaMadre.modelo}"/>
+			<h:outputText value="Procesador:" style="font-weight:bold"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.placaMadre.procesador.marca}"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.placaMadre.procesador.modelo}"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.placaMadre.procesador.velocidad}"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.placaMadre.procesador.cacheL1}"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.placaMadre.procesador.cacheL2}"/>	
+			<h:outputText value="Memoria:" style="font-weight:bold"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.placaMadre.memoria.marca}"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.placaMadre.memoria.modelo}"/>
+			<h:outputText value="#{notebookBuilderMB.notebook.placaMadre.memoria.capacidad}"/>					            			            
+			</h:panelGrid>
+          </h:panelGrid>
+	    </p:panel>
+	</h:form>
+
+</h:body>
+</html>
