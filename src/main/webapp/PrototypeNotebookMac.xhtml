@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">  
+
+
+
+<h:head>
+	<title>Prototype Notebook Mac</title>
+</h:head>
+
+<h:body>
+	
+	<h:form>
+
+	 	<p:growl autoUpdate="true"/>
+	   
+	    
+		<p:panel id="panel" header="Prototype Notebook Mac" style="margin-bottom:10px">
+
+			<h:panelGrid columns="2" cellpadding="5">
+			
+			<h:selectOneMenu 
+				value="#{prototypeNotebookMacMB.colorSelected}">
+				<f:selectItem itemLabel="Mac White" itemValue="White"/>
+				<f:selectItem itemLabel="Mac Red" itemValue="Red" />
+				<f:selectItem itemLabel="Mac Black" itemValue="Black" />
+
+			</h:selectOneMenu>                     
+  			<p:commandButton action="#{prototypeNotebookMacMB.make()}" value="Make" update="@form"/>	
+			
+			<h:panelGrid columns="1" cellpadding="2">
+			<h:outputText value="Color:" style="font-weight:bold"/>
+			<h:outputText value="#{prototypeNotebookMacMB.macClonado.color.color}"/>	
+			<h:outputText value="HashCode:" style="font-weight:bold"/>
+			<h:outputText value="#{prototypeNotebookMacMB.macClonado.color.hashCode()}"/>
+				
+			</h:panelGrid>
+			
+          </h:panelGrid>
+	    </p:panel>
+	</h:form>
+
+</h:body>
+</html>

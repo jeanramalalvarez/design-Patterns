@@ -11,13 +11,7 @@ import ar.edu.utn.builder.MacUltraBookPro7Builder;
 import ar.edu.utn.builder.Notebook;
 import ar.edu.utn.builder.NotebookBuilder;
 import ar.edu.utn.builder.NotebookDirector;
-import ar.edu.utn.model.abstractFactory.Color;
-import ar.edu.utn.model.abstractFactory.FabricaLcdAzul;
-import ar.edu.utn.model.abstractFactory.FabricaLcdNegro;
-import ar.edu.utn.model.abstractFactory.FabricaLedRojo;
-import ar.edu.utn.model.abstractFactory.FabricaPlasmaNegro;
-import ar.edu.utn.model.abstractFactory.FabricaTv;
-import ar.edu.utn.model.abstractFactory.Tv;
+
 
 
 @ManagedBean
