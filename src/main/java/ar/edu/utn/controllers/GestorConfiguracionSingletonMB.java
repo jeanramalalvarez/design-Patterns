@@ -3,7 +3,7 @@ package ar.edu.utn.controllers;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import ar.edu.utn.model.singleton.GestorArchivosConfiguracionSingleton;
+import ar.edu.utn.singleton.GestorArchivosConfiguracionSingleton;
 
 @ManagedBean
 @ViewScoped

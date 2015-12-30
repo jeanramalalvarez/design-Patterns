@@ -6,13 +6,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import ar.edu.utn.model.abstractFactory.Color;
-import ar.edu.utn.model.abstractFactory.FabricaLcdAzul;
-import ar.edu.utn.model.abstractFactory.FabricaLcdNegro;
-import ar.edu.utn.model.abstractFactory.FabricaLedRojo;
-import ar.edu.utn.model.abstractFactory.FabricaPlasmaNegro;
-import ar.edu.utn.model.abstractFactory.FabricaTv;
-import ar.edu.utn.model.abstractFactory.Tv;
+import ar.edu.utn.abstractFactory.Color;
+import ar.edu.utn.abstractFactory.FabricaLcdAzul;
+import ar.edu.utn.abstractFactory.FabricaLcdNegro;
+import ar.edu.utn.abstractFactory.FabricaLedRojo;
+import ar.edu.utn.abstractFactory.FabricaPlasmaNegro;
+import ar.edu.utn.abstractFactory.FabricaTv;
+import ar.edu.utn.abstractFactory.Tv;
 
 
 @ManagedBean

@@ -6,9 +6,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-
-import ar.edu.utn.model.prototype.Color;
-import ar.edu.utn.model.prototype.Notebook;
+import ar.edu.utn.prototype.Color;
+import ar.edu.utn.prototype.Notebook;
 
 @ManagedBean
 @ViewScoped
